@@ -2,9 +2,10 @@ from flask import Flask
 
 def create_app():
     app = Flask(__name__)
+    app.config.from_pyfile('settings.py')
 
     @app.route('/')
     def index():
-        return "Halo"
+        return app.config['GREETING']
 
     return app
