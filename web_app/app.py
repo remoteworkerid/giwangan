@@ -6,6 +6,6 @@ def create_app():
 
     @app.route('/')
     def index():
-        return render_template('index.html')
+        return render_template('index.html', TITLE=app.config['TITLE'])
 
     return app
