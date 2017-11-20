@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/static/favicon.ico">
+
+    <title>{{ TITLE }} - {{ TAGLINE }}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <!--<link href="/static/app.css" rel="stylesheet">-->
+  </head>
+
+  <body>
+    <!--https://bootsnipp.com/snippets/featured/admin-navigation-->
+    <!--Change into login dropdown https://bootsnipp.com/snippets/featured/fancy-navbar-login-sign-in-form-->
+    <!--Upgrade to 4 using http://upgrade-bootstrap.bootply.com/-->
+ <nav class="navbar navbar-light bg-light navbar-expand-sm" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> &#x2630;</button> <a class="navbar-brand"
+    href="http://www.jquery2dotnet.com">{{ TITLE }}</a>
+    <!-- Collect the nav links,
+    forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li class="active nav-item"><a href="/" class="nav-link"><span class="glyphicon glyphicon-home"></span>Home</a>
+            </li>
+            <li class="nav-item"><a href="#" class="nav-link"><span class="glyphicon glyphicon-calendar"></span>Course</a>
+            </li>
+            <li class="nav-item"><a href="#" class="nav-link"><span class="glyphicon glyphicon-calendar"></span>Blog</a>
+            </li>
+            <li class="nav-item"><a href="#" class="nav-link"><span class="glyphicon glyphicon-calendar"></span>Policy</a>
+            </li>
+            <li class="nav-item"><a href="/about" class="nav-link"><span class="glyphicon glyphicon-calendar"></span>About</a>
+            </li>
+
+
+        </ul>
+
+    </div>
+    <!-- /.navbar-collapse -->
+</nav>
+
+    <main role="main" class="container">
+
+      {% block content %}
+      {% endblock %}
+
+    </main><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  </body>
+</html>

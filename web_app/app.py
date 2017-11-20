@@ -9,4 +9,9 @@ def create_app():
         return render_template('index.html', TITLE=app.config['TITLE'],
                                TAGLINE=app.config['TAGLINE'])
 
+    @app.route('/about')
+    def about():
+        return render_template('about.html', TITLE=app.config['TITLE'],
+                               TAGLINE=app.config['TAGLINE'])
+
     return app
