@@ -1,3 +1,4 @@
-TITLE = 'Pythonthusiast - Remote Work Mentoring'
+TITLE = 'Pythonthusiast'
+TAGLINE = 'Remote Work Mentoring'
 DEBUG = True
 GREETING = 'Halo Dunia. Apa kabar?'

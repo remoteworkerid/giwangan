@@ -6,6 +6,7 @@ def create_app():
 
     @app.route('/')
     def index():
-        return render_template('index.html', TITLE=app.config['TITLE'])
+        return render_template('index.html', TITLE=app.config['TITLE'],
+                               TAGLINE=app.config['TAGLINE'])
 
     return app
