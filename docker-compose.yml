@@ -14,3 +14,16 @@ services:
       - '.:/web_app'
     ports:
       - '8000:8000'
+
+  postgres:
+    image: 'postgres:9.5'
+    environment:
+      POSTGRES_USER: 'devuser'
+      POSTGRES_PASSWORD: 'devpassword'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+    ports:
+      - '5433:5432'
+
+volumes:
+  postgres:
