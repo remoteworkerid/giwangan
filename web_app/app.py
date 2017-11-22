@@ -7,7 +7,6 @@ def create_app():
     app.config.from_pyfile('settings.py')
 
     db = SQLAlchemy(app)
-    db.create_all()
 
     @app.route('/')
     def index():
@@ -18,5 +17,17 @@ def create_app():
     def about():
         return render_template('about.html', TITLE=app.config['TITLE'],
                                TAGLINE=app.config['TAGLINE'])
+
+    @app.route('/testdb')
+    def testdb():
+        import psycopg2
+        con = psycopg2.connect('dbname=web_app user=devuser password=devpassword host=postgres')
+        cur = con.cursor()
+        cur.execute("SELECT * FROM page;")
+
+        id, title = cur.fetchone()
+        con.close()
+        return title
+
 
     return app
