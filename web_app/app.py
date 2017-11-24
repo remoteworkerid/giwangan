@@ -1,21 +1,11 @@
 from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String
+from web_app.models import db, Page
 
 
 def create_app():
     app = Flask(__name__)
     app.config.from_pyfile('settings.py')
-
-    db = SQLAlchemy(app)
-
-    class Page(db.Model):
-        __tablename__ = 'page'
-
-        id = Column(Integer, primary_key=True)
-        title = Column(String)
-
-    db.create_all()
+    db.init_app(app)
 
     @app.route('/')
     def index():
@@ -44,7 +34,7 @@ def create_app():
 
     @app.route('/testdbsqlalchemy')
     def testdbsqlalchemy():
-        page = Page.query.filter_by(id=1).first()
+        page = Page.query.filter_by(id=2).first()
         if page is not None:
             return page.title
         else:
