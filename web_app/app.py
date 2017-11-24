@@ -9,8 +9,11 @@ def create_app():
 
     @app.route('/')
     def index():
+        page = Page.query.filter_by(title='homepage').first()
+        if page is None:
+            content = page.content
         return render_template('index.html', TITLE=app.config['TITLE'],
-                               TAGLINE=app.config['TAGLINE'])
+                               TAGLINE=app.config['TAGLINE'], CONTENT=content)
 
     @app.route('/about')
     def about():

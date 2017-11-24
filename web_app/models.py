@@ -9,3 +9,6 @@ class Page(db.Model):
 
     id = Column(Integer, primary_key=True)
     title = Column(String)
+    content = Column(String)
+    tag = Column(String)
+    keyword = Column(String)
