@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, UniqueConstraint
+from sqlalchemy import Column, Integer, String, UniqueConstraint, ForeignKey
+from sqlalchemy.orm import relationship, backref
 
 db = SQLAlchemy()
 
@@ -13,4 +14,13 @@ class Page(db.Model):
     tag = Column(String)
     keyword = Column(String)
 
-    UniqueConstraint(title, name='page_unique_title')
+
+class Menu(db.Model):
+    __tablename__ = 'menu'
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String, nullable=False)
+    order = Column(Integer, nullable=False)
+
+    page_id = Column(Integer, ForeignKey('page.id'))
+    page = relationship("Page", backref=backref("page", uselist=False))
