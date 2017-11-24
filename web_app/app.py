@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Column, Integer, String
 
 
 def create_app():
@@ -7,6 +8,14 @@ def create_app():
     app.config.from_pyfile('settings.py')
 
     db = SQLAlchemy(app)
+
+    class Page(db.Model):
+        __tablename__ = 'page'
+
+        id = Column(Integer, primary_key=True)
+        title = Column(String)
+
+    db.create_all()
 
     @app.route('/')
     def index():
@@ -25,9 +34,20 @@ def create_app():
         cur = con.cursor()
         cur.execute("SELECT * FROM page;")
 
-        id, title = cur.fetchone()
+        if cur.rowcount > 0:
+            id, title = cur.fetchone()
+        else:
+            return 'empty'
+
         con.close()
         return title
 
+    @app.route('/testdbsqlalchemy')
+    def testdbsqlalchemy():
+        page = Page.query.filter_by(id=1).first()
+        if page is not None:
+            return page.title
+        else:
+            return 'empty'
 
     return app
