@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship, backref
 
 db = SQLAlchemy()
 
-
+# http://docs.sqlalchemy.org/en/latest/core/constraints.html
 class Page(db.Model):
     __tablename__ = 'page'
 
