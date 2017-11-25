@@ -14,6 +14,9 @@ class Page(db.Model):
     tag = Column(String)
     keyword = Column(String)
 
+    def __repr__(self):
+        return self.title
+
 
 class Menu(db.Model):
     __tablename__ = 'menu'
@@ -24,3 +27,6 @@ class Menu(db.Model):
 
     page_id = Column(Integer, ForeignKey('page.id'))
     page = relationship("Page", backref=backref("Linked from Menu", uselist=False))
+
+    def __repr__(self):
+        return self.title
