@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, UniqueConstraint, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship, backref
 
 db = SQLAlchemy()
@@ -23,4 +23,4 @@ class Menu(db.Model):
     order = Column(Integer, nullable=False)
 
     page_id = Column(Integer, ForeignKey('page.id'))
-    page = relationship("Page", backref=backref("page", uselist=False))
+    page = relationship("Page", backref=backref("Linked from Menu", uselist=False))
