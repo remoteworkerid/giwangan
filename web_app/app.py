@@ -17,7 +17,8 @@ def create_app():
     @app.route('/')
     def index():
         page = Page.query.filter_by(title='homepage').first()
-        if page is None:
+        content = 'empty'
+        if page is not None:
             content = page.content
         return render_template('index.html', TITLE=app.config['TITLE'],
                                TAGLINE=app.config['TAGLINE'], CONTENT=content)
