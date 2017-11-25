@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 from sqlalchemy.orm import relationship, backref
 
 db = SQLAlchemy()
@@ -13,6 +13,7 @@ class Page(db.Model):
     content = Column(String)
     tag = Column(String)
     keyword = Column(String)
+    is_homepage = Column(Boolean)
 
     def __repr__(self):
         return self.title

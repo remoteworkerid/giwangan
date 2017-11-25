@@ -3,7 +3,7 @@ from flask_admin import Admin
 
 from web_app.models import db, Page, Menu
 from web_app.views import PageModelView, MenuModelView
-
+from sqlalchemy import func
 
 def create_app():
     app = Flask(__name__)
@@ -15,40 +15,19 @@ def create_app():
     admin.add_view(MenuModelView(Menu, db.session))
 
     @app.route('/')
-    def index():
-        page = Page.query.filter_by(title='homepage').first()
-        content = 'empty'
+    @app.route('/<uri>')
+    def index(uri=None):
+        if uri is None:
+            page = Page.query.filter_by(is_homepage=True).first()
+        else:
+            page = Page.query.filter(func.lower(Page.title) == uri.lower()).first()
+        menus = Menu.query.order_by('order')
+
+        content = ''
         if page is not None:
             content = page.content
         return render_template('index.html', TITLE=app.config['TITLE'],
-                               TAGLINE=app.config['TAGLINE'], CONTENT=content)
+                               TAGLINE=app.config['TAGLINE'], body=content, menus=menus)
 
-    @app.route('/about')
-    def about():
-        return render_template('about.html', TITLE=app.config['TITLE'],
-                               TAGLINE=app.config['TAGLINE'])
-
-    @app.route('/testdb')
-    def testdb():
-        import psycopg2
-        con = psycopg2.connect('dbname=web_app user=devuser password=devpassword host=postgres')
-        cur = con.cursor()
-        cur.execute("SELECT * FROM page;")
-
-        if cur.rowcount > 0:
-            id, title = cur.fetchone()
-        else:
-            return 'empty'
-
-        con.close()
-        return title
-
-    @app.route('/testdbsqlalchemy')
-    def testdbsqlalchemy():
-        page = Page.query.filter_by(id=2).first()
-        if page is not None:
-            return page.title
-        else:
-            return 'empty'
 
     return app
