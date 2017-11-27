@@ -5,3 +5,6 @@ Flask-SQLAlchemy
 alembic
 flask-admin
 flask-wtf
+flask-security
+bcrypt
+flask-mail
