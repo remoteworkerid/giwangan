@@ -15,3 +15,6 @@ SECURITY_PASSWORD_SALT = 'https://stackoverflow.com/questions/25942092/unique-sa
 SECURITY_CONFIRMABLE = False
 SECURITY_LOGIN_WITHOUT_CONFIRMATION = True
 SECURITY_SEND_REGISTER_EMAIL = False
+
+#once register, set this as admin
+ADMIN_ACCOUNT = 'swdev.bali@gmail.com'
