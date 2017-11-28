@@ -1,0 +1,59 @@
+{% extends "security/base-security.html" %}
+{% from "security/_macros.html" import render_field_with_errors, render_field_with_errors_2, render_field %}
+{% include "security/_messages.html" %}
+{% block body %}
+    <div id="login-overlay" class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="myModalLabel">Login</h4>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                  <div class="col-xs-6">
+                      <div class="well">
+                          <form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
+                            {{ login_user_form.hidden_tag() }}
+                              <div class="form-group">
+                                  <!--<label for="email" class="control-label">Username</label>-->
+                                  <!--<input type="text" class="form-control" id="username" name="username" value="" required="" title="Please enter you username" placeholder="example@gmail.com">-->
+                                  {{ render_field_with_errors(login_user_form.email, class_="form-control") }}
+                                  <span class="help-block"></span>
+                              </div>
+                              <div class="form-group">
+                                  <!--<label for="password" class="control-label">Password</label>-->
+                                  <!--<input type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password">-->
+                                {{ render_field_with_errors(login_user_form.password, class_="form-control") }}
+                                  <span class="help-block"></span>
+                              </div>
+                              <div id="loginErrorMsg" class="alert alert-error hide">Wrong username og password</div>
+                              <div class="checkbox">
+                                  <label>
+                                    {{ render_field_with_errors_2(login_user_form.remember, label="Remember login") }}
+
+                                  </label>
+                                  <p class="help-block">(if this is a private computer)</p>
+                                {{ render_field(login_user_form.next) }}
+                              </div>
+                            {{ render_field(login_user_form.submit, class_ ="btn btn-success btn-block") }}
+                              <!--<a href="/forgot/" class="btn btn-default btn-block">Help to login</a>-->
+                          </form>
+                      </div>
+                  </div>
+                  <div class="col-xs-6">
+                      <p class="lead">Register now for <span class="text-success">FREE</span></p>
+                      <ul class="list-unstyled" style="line-height: 2">
+                          <li><span class="fa fa-check text-success"></span> Apply for premimum paid courses</li>
+                          <li><span class="fa fa-check text-success"></span> Collaborate with ethusiast learner</li>
+                          <li><span class="fa fa-check text-success"></span> Get notified for new lesson/courses</li>
+                          <li><span class="fa fa-check text-success"></span> Show of your personal sites</li>
+                          <li><span class="fa fa-check text-success"></span> Get a limited T-Shirt!</li>
+                          <li><a href="/signup-benefit/"><u>Read more</u></a></li>
+                      </ul>
+                      <p><a href="{{ url_for_security('register') }}{% if 'next' in request.args %}?next={{ request.args.next|urlencode }}{% endif %}" class="btn btn-info btn-block">Yes please, register now!</a></p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+{% endblock %}
