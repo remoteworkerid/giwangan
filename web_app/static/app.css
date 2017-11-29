@@ -1,181 +1,55 @@
-body {
-    font-family: 'Roboto';font-size: 17px;
-}
-.navbar-default {
-  background-color: #c80707;
-  border-color: #f39b00;
-}
-.navbar-default .navbar-brand {
-  color: #ffffff;
-}
-.navbar-default .navbar-brand:hover,
-.navbar-default .navbar-brand:focus {
-  color: #ffffff;
-}
-.navbar-default .navbar-text {
-  color: #ffffff;
-}
-.navbar-default .navbar-nav > li > a {
-  color: #ffffff;
-}
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
-  color: #ffffff;
-}
-.navbar-default .navbar-nav > li > .dropdown-menu {
-  background-color: #c80707;
-}
-.navbar-default .navbar-nav > li > .dropdown-menu > li > a {
-  color: #ffffff;
-}
-.navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
-.navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
-  color: #ffffff;
-  background-color: #f39b00;
-}
-.navbar-default .navbar-nav > li > .dropdown-menu > li.divider {
-  background-color: #f39b00;
-}
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav > .active > a:focus {
-  color: #ffffff;
-  background-color: #f39b00;
-}
-.navbar-default .navbar-nav > .open > a,
-.navbar-default .navbar-nav > .open > a:hover,
-.navbar-default .navbar-nav > .open > a:focus {
-  color: #ffffff;
-  background-color: #f39b00;
-}
-.navbar-default .navbar-toggle {
-  border-color: #f39b00;
-}
-.navbar-default .navbar-toggle:hover,
-.navbar-default .navbar-toggle:focus {
-  background-color: #f39b00;
-}
-.navbar-default .navbar-toggle .icon-bar {
-  background-color: #ffffff;
-}
-.navbar-default .navbar-collapse,
-.navbar-default .navbar-form {
-  border-color: #ffffff;
-}
-.navbar-default .navbar-link {
-  color: #ffffff;
-}
-.navbar-default .navbar-link:hover {
-  color: #ffffff;
+body{
+    padding:50px;
 }
 
-@media (max-width: 767px) {
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #ffffff;
-  }
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #ffffff;
-  }
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #ffffff;
-    background-color: #f39b00;
-  }
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow:hidden;
+    background-color:rgba(255,255,255,.8);
 }
-
-.padding90 {
-    padding :90px;
+#login-dp .help-block{
+    font-size:12px
 }
-
-/* team css */
-
-.team-sec{float: left;width: 100%;}
-.team .photo {width: 250px; height: 250px; display: inline-block; overflow: hidden; position: relative; }
-.photo-shadow {position: absolute; z-index: -1; top: 12px; left: 16px; bottom: -10px; border: 1px solid #E3E3E3; height: 250px; width: 246px; background: #fff; }
-.col-item{position: relative;}
-.team{margin-top: 60px;}
-.team .photo img{width: 100%;    vertical-align: middle;position: relative;}
-.social-connect{margin-top: 13px;}
-.info{margin-top: 22px;}
-.info .name{font-size: 18px;font-weight: 600;margin-bottom: 2px;}
-.info .degination{font-size: 16px;font-weight: 300;font-style: italic;color: #8B8B8B;}
-.social-connect a{ display: inline-block; border: 1px solid #E3E3E3; font-size: 14px; color: #919191; width: 24px; height: 24px; text-align: center; line-height: 24px;margin-right: 4px;}
-.social-connect a .fa{margin: 0;}
-.social-connect a:hover{background-color: #4EBEE9;color: #fff;} .carousel-line{    border: 1px solid #ddd; height: 320px; position: absolute; bottom: -90px; width: 110%; left: -5.5%;}
-.carousel-line > .controls{position: absolute; bottom: -16px; left: 50%; margin-left: -50px; background: #fff; padding: 0px 20px; color: #000;}
-.carousel-line > .controls > a{    color: #868686; font-size: 24px; font-weight: 300;}
-
-/*css for 3 boxes */
-
-.padding5em {
-    padding: 5em 0em;
+#login-dp .bottom{
+    background-color:rgba(255,255,255,.8);
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
 }
-.green {
-    background : #fff;
+#login-dp .social-buttons{
+    margin:12px 0
 }
-.text-heading {
-    text-align: center;
-    padding-bottom: 1em;
+#login-dp .social-buttons a{
+    width: 49%;
 }
-.text-heading h3 {
-    font-size: 2.5em;
-    color: #e00808;
-    font-family: 'helvetica', cursive;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    margin: 0;
+#login-dp .form-group {
+    margin-bottom: 10px;
 }
-
-.text-heading-line {
-    position: relative;
-    content: "";
-    height: 1px;
-    background: #e00808;
-    width: 14%;
-    margin: 0 auto;
-    top: 11px;
-}
-.text-heading-line:before {
-    content: "";
-    height: 3px;
-    background: #e00808;
-    position: absolute;
-    width: 25%;
-    top: -1px;
-    left: 61px;
-}
-
-.margintop3em {
-    margin: 3em 0 0 0;
-}
-
-.box1 a {
-    color: #000000;
-    font-size: 1.5em;
-    margin: 0;
-    text-decoration: none;
-}
-p {
-    display: block;
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
-}
-.box1 a img{
-	width:100%;
-	margin-bottom:1em;
-}
-
-.bgimage2 {
-    /* background: url(https://static.pexels.com/photos/70577/sunset-birds-flying-sky-70577.jpeg) center fixed; */
+.btn-fb{
     color: #fff;
-
+    background-color:#3b5998;
 }
-.padding80 {
-    padding: 80px 0;
+.btn-fb:hover{
+    color: #fff;
+    background-color:#496ebc
+    background-color:#496ebc
 }
-
-
+.btn-tw{
+    color: #fff;
+    background-color:#55acee;
+}
+.btn-tw:hover{
+    color: #fff;
+    background-color:#59b5fa;
+}
+@media(max-width:768px){
+    #login-dp{
+        background-color: inherit;
+        color: #fff;
+    }
+    #login-dp .bottom{
+        background-color: inherit;
+        border-top:0 none;
+    }
+}

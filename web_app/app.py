@@ -31,11 +31,11 @@ def create_app():
             page = Page.query.filter(func.lower(Page.title) == uri.lower()).first()
         menus = Menu.query.order_by('order')
 
-        content = ''
+        content = 'empty page content'
         if page is not None:
             content = page.content
         return render_template('index.html', TITLE=app.config['TITLE'],
-                               TAGLINE=app.config['TAGLINE'], body=content, menus=menus)
+                               TAGLINE=app.config['TAGLINE'], content=content, menus=menus)
 
     @app.route('/register', methods=['GET', 'POST'])
     @anonymous_user_required
