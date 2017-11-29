@@ -8,19 +8,21 @@ from flask_security.decorators import anonymous_user_required
 
 from web_app import models
 from web_app.models import db, Page, Menu, User, Role
-from web_app.views import PageModelView, MenuModelView, UserModelView
+from web_app.views import PageModelView, MenuModelView, UserModelView, RoleModelView, SecuredHomeView
 from sqlalchemy import func
+
 
 def create_app():
     app = Flask(__name__)
     app.config.from_pyfile('settings.py')
     db.init_app(app)
 
-    admin = Admin(app, name=app.config['TITLE'], template_mode='bootstrap3')
+    admin = Admin(app, name=app.config['TITLE'], template_mode='bootstrap3', index_view=SecuredHomeView(url='/admin'))
+
     admin.add_view(PageModelView(Page, db.session))
     admin.add_view(MenuModelView(Menu, db.session))
     admin.add_view(UserModelView(User, db.session))
-    admin.add_view(ModelView(Role, db.session))
+    admin.add_view(RoleModelView(Role, db.session))
 
     user_datastore = SQLAlchemyUserDatastore(db, models.User, models.Role)
     security = Security(app, user_datastore)
