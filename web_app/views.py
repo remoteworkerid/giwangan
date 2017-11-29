@@ -25,3 +25,8 @@ class PageModelView(ModelView):
 
 class MenuModelView(ModelView):
     form_columns = ('title', 'order', 'page')
+
+
+class UserModelView(ModelView):
+    column_list = ('email', 'active', 'roles')
+    form_columns = ('email', 'active', 'roles')

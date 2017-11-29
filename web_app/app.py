@@ -1,13 +1,14 @@
 import flask_security
 from flask import Flask, render_template
 from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 from flask_login import login_required
 from flask_security import SQLAlchemyUserDatastore, Security
 from flask_security.decorators import anonymous_user_required
 
 from web_app import models
-from web_app.models import db, Page, Menu
-from web_app.views import PageModelView, MenuModelView
+from web_app.models import db, Page, Menu, User, Role
+from web_app.views import PageModelView, MenuModelView, UserModelView
 from sqlalchemy import func
 
 def create_app():
@@ -18,6 +19,8 @@ def create_app():
     admin = Admin(app, name=app.config['TITLE'], template_mode='bootstrap3')
     admin.add_view(PageModelView(Page, db.session))
     admin.add_view(MenuModelView(Menu, db.session))
+    admin.add_view(UserModelView(User, db.session))
+    admin.add_view(ModelView(Role, db.session))
 
     user_datastore = SQLAlchemyUserDatastore(db, models.User, models.Role)
     security = Security(app, user_datastore)
