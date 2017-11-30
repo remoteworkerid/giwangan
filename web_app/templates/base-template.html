@@ -7,7 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="/static/favicon.ico">
 
     <title>{{ TITLE }} - {{ TAGLINE }}</title>
 
@@ -30,7 +30,7 @@
 
   <body>
 
-    <nav class="navbar navbar-default navbar-inverse" role="navigation">
+    <nav class="navbar navbar-default navbar" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -78,7 +78,9 @@
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Welcome, {{ current_user.email }}
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
+          {% if current_user.role == "admin" %}
           <li><a href="/admin" target="_blank">Admin</a></li>
+          {% endif %}
           <li><a href="/logout">Logout</a></li>
         </ul>
       </li>
