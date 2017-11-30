@@ -50,7 +50,7 @@ class PageModelView(AdminOnlyModelView):
 
 
 class MenuModelView(AdminOnlyModelView):
-    form_columns = ('title', 'order', 'page')
+    form_columns = ('title', 'order')
 
 
 class UserModelView(AdminOnlyModelView):
