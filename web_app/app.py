@@ -38,6 +38,7 @@ def create_app():
             global_vars.SITE_NAME = siteconfiguration.name
             global_vars.SITE_TAGLINE = siteconfiguration.tagline
             global_vars.SHOW_REGISTRATION_MENU = siteconfiguration.show_registration_menu
+            global_vars.YOUTUBE_LINK = siteconfiguration.youtube_link
 
     @app.route('/')
     @app.route('/<uri>')

@@ -23,6 +23,7 @@ with app.app_context():
     site.name = 'Pythonthusiast'
     site.tagline = 'Remote Work Mentoring'
     site.show_registration_menu = False
+    site.youtube_link = 'https://www.youtube.com/user/swdevbali/'
     db.session.add(site)
 
     page = Page()

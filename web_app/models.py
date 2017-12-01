@@ -41,6 +41,7 @@ class SiteConfiguration(db.Model):
     name = Column(String, nullable=False)
     tagline = Column(String, nullable=False)
     show_registration_menu = Column(Boolean)
+    youtube_link = Column(String)
 
 
 roles_users = db.Table('roles_users',
