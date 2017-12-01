@@ -33,6 +33,15 @@ class Menu(db.Model):
     def __repr__(self):
         return self.title
 
+
+class SiteConfiguration(db.Model):
+    __tablename__ = 'siteconfiguration'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    tagline = Column(String, nullable=False)
+
+
 roles_users = db.Table('roles_users',
         db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
         db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))

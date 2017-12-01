@@ -60,3 +60,7 @@ class UserModelView(AdminOnlyModelView):
 
 class RoleModelView(AdminOnlyModelView):
     pass
+
+
+class SiteConfigurationView(AdminOnlyModelView):
+    pass

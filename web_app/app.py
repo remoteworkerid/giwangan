@@ -1,14 +1,15 @@
 import flask_security
 from flask import Flask, render_template
 from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
 from flask_login import login_required
 from flask_security import SQLAlchemyUserDatastore, Security
 from flask_security.decorators import anonymous_user_required
 
-from web_app import models
-from web_app.models import db, Page, Menu, User, Role
-from web_app.views import PageModelView, MenuModelView, UserModelView, RoleModelView, SecuredHomeView
+import global_vars
+import models
+from models import db, Page, Menu, User, Role, SiteConfiguration
+from views import PageModelView, MenuModelView, UserModelView, RoleModelView, SecuredHomeView, \
+    SiteConfigurationView
 from sqlalchemy import func
 
 
@@ -23,9 +24,19 @@ def create_app():
     admin.add_view(MenuModelView(Menu, db.session))
     admin.add_view(UserModelView(User, db.session))
     admin.add_view(RoleModelView(Role, db.session))
+    admin.add_view(SiteConfigurationView(SiteConfiguration, db.session))
 
     user_datastore = SQLAlchemyUserDatastore(db, models.User, models.Role)
     security = Security(app, user_datastore)
+
+    @app.before_first_request
+    def init_vars():
+        #TODO improve for multisite
+        siteconfiguration = SiteConfiguration.query.filter_by(id=1).first()
+
+        if siteconfiguration is not None:
+            global_vars.SITE_NAME = siteconfiguration.name
+            global_vars.SITE_TAGLINE = siteconfiguration.tagline
 
     @app.route('/')
     @app.route('/<uri>')
@@ -39,17 +50,11 @@ def create_app():
         content = 'empty page content'
         if page is not None:
             content = page.content
-        return render_template('index.html', TITLE=app.config['TITLE'],
-                               TAGLINE=app.config['TAGLINE'], content=content, menus=menus)
+        return render_template('index.html', global_vars=global_vars, content=content, menus=menus)
 
     @app.route('/register', methods=['GET', 'POST'])
     @anonymous_user_required
     def register():
         return flask_security.views.register()
-
-    @app.route('/sec')
-    @login_required
-    def sec():
-        return 'congrats!'
 
     return app
