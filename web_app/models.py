@@ -40,6 +40,7 @@ class SiteConfiguration(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     tagline = Column(String, nullable=False)
+    show_registration_menu = Column(Boolean)
 
 
 roles_users = db.Table('roles_users',

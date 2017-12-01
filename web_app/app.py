@@ -37,6 +37,7 @@ def create_app():
         if siteconfiguration is not None:
             global_vars.SITE_NAME = siteconfiguration.name
             global_vars.SITE_TAGLINE = siteconfiguration.tagline
+            global_vars.SHOW_REGISTRATION_MENU = siteconfiguration.show_registration_menu
 
     @app.route('/')
     @app.route('/<uri>')

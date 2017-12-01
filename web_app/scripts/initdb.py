@@ -22,6 +22,7 @@ with app.app_context():
     site = SiteConfiguration()
     site.name = 'Pythonthusiast'
     site.tagline = 'Remote Work Mentoring'
+    site.show_registration_menu = False
     db.session.add(site)
 
     page = Page()
