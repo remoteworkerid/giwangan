@@ -3,7 +3,7 @@ import sys
 sys.path.append(os.getcwd() + "/web_app/")
 
 from app import create_app
-from models import User, db, Role, SiteConfiguration, Page
+from models import User, db, Role, SiteConfiguration, Page, Menu
 
 app = create_app()
 
