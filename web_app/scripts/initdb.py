@@ -22,7 +22,7 @@ with app.app_context():
     site = SiteConfiguration()
     site.name = 'NezzMedia'
     site.tagline = 'Days of Fun from All Over The World'
-    site.show_registration_menu = False
+    site.show_registration_menu = True
     site.youtube_link = 'https://www.youtube.com/user/swdevbali/'
     db.session.add(site)
 
