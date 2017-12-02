@@ -16,6 +16,8 @@ class Page(db.Model):
     keyword = Column(String)
     is_homepage = Column(Boolean)
 
+    subtype = Column(String, default='page')
+
     def __repr__(self):
         return self.title
 
