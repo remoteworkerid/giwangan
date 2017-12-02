@@ -28,7 +28,6 @@ with app.app_context():
 
     page = Page()
     page.title = "Homepage"
-    page.is_homepage = True
     page.subtype = 'page'
     page.content = \
     '''
@@ -41,6 +40,7 @@ with app.app_context():
     gaming_page = Page()
     gaming_page.title = "Gaming"
     gaming_page.subtype = 'pinterestpage'
+    gaming_page.is_homepage = True
     gaming_page.content = \
         '''
         Pinterest like is here
