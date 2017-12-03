@@ -2,10 +2,16 @@ from flask_security import RoleMixin, UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, DateTime
 from sqlalchemy.orm import relationship, backref
+from sqlalchemy import event
+
+
+'''
+http://docs.sqlalchemy.org/en/latest/core/constraints.html
+'''
 
 db = SQLAlchemy()
 
-# http://docs.sqlalchemy.org/en/latest/core/constraints.html
+
 class Page(db.Model):
     __tablename__ = 'page'
 
@@ -19,24 +25,26 @@ class Page(db.Model):
     subtype = Column(String, default='page')
     subtype_data = Column(String)
 
-    def __repr__(self):
-        return self.title
-
-
-class Post(db.Model):
-    __tablename__ = 'post'
-
-    id = Column(Integer, primary_key=True)
-    title = Column(String, nullable=False)
-    content = Column(String)
-    tag = Column(String)
-    keyword = Column(String)
     stamp = Column(DateTime)
     category = Column(String)
-    url = Column(String)
+    url = Column(String, nullable=False)
 
     def __repr__(self):
         return self.title
+
+
+def before_insert_update_listener(mapper, connection, target):
+    if target.url is None:
+        target.url = target.title.replace(' ', '-').lower()
+
+        import re
+        regex = re.compile('[^a-zA-Z\-]')
+        print(target.url)
+        target.url = (regex.sub('', target.url)).lower()
+        print(target.url)
+
+event.listen(Page, 'before_insert', before_insert_update_listener)
+event.listen(Page, 'before_update', before_insert_update_listener)
 
 
 class Menu(db.Model):

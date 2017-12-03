@@ -1,6 +1,6 @@
 from flask import render_template, json
 
-from web_app.models import Post
+from models import Page
 
 
 def process(page):
@@ -8,7 +8,7 @@ def process(page):
 
     if data['show_post']:
         if 'tag' in data and data['tag']:
-            posts = Post.query.filter(Post.tag.contains(data['tag'])).all()
+            posts = Page.query.filter(Page.tag.contains(data['tag'])).all()
         elif 'category' in data and data['category']:
-            posts = Post.query.filter(Post.category == data['category']).all()
+            posts = Page.query.filter(Page.category == data['category']).all()
     return render_template('pinterestpage/content.html', posts=posts)

@@ -1,12 +1,11 @@
 import os
 import sys
+sys.path.append(os.getcwd() + "/web_app/")
 
 from flask import json
 
-sys.path.append(os.getcwd() + "/web_app/")
-
 from app import create_app
-from models import User, db, Role, SiteConfiguration, Page, Menu, Post
+from models import User, db, Role, SiteConfiguration, Page, Menu
 
 app = create_app()
 
@@ -51,7 +50,7 @@ with app.app_context():
     db.session.add(menu)
     db.session.commit()
 
-    post = Post()
+    post = Page()
     post.title = 'Doom VFR datang!'
     post.content = \
         '''
@@ -62,7 +61,7 @@ with app.app_context():
     post.tag = 'doom,vr,feature'
     db.session.add(post)
 
-    post = Post()
+    post = Page()
     post.title = 'Bug memalukan pada OSX Sierra'
     post.content = \
         '''

@@ -1,3 +1,7 @@
+import os
+import sys
+sys.path.append(os.getcwd() + "/web_app/")
+
 import flask_security
 from flask import Flask, render_template
 from flask_admin import Admin
@@ -5,9 +9,9 @@ from flask_login import login_required
 from flask_security import SQLAlchemyUserDatastore, Security
 from flask_security.decorators import anonymous_user_required
 
-import web_app.global_vars as global_vars
-from web_app.models import db, Page, Menu, User, Role, SiteConfiguration
-from web_app.views import PageModelView, MenuModelView, UserModelView, RoleModelView, SecuredHomeView, \
+import global_vars as global_vars
+from models import db, Page, Menu, User, Role, SiteConfiguration
+from views import PageModelView, MenuModelView, UserModelView, RoleModelView, SecuredHomeView, \
     SiteConfigurationView
 from sqlalchemy import func
 
@@ -46,7 +50,7 @@ def create_app():
         if uri is None:
             page = Page.query.filter_by(is_homepage=True).first()
         else:
-            page = Page.query.filter(func.lower(Page.title) == uri.lower()).first()
+            page = Page.query.filter(Page.url == uri).first()
         menus = Menu.query.order_by('order')
         print(uri, page)
 

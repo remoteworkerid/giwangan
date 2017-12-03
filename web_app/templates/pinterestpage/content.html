@@ -36,8 +36,8 @@ stylize any heading tags withing white-panel below
 </style>
 <section id="pinBoot">
     {% for p in posts %}
-      <article class="white-panel"><img src="https://cdn.arstechnica.net/wp-content/uploads/2017/12/RRS_PHEV_FirenzeRed_017-360x200.jpg" alt="">
-        <h4><a href="/{{ p.title|lower|replace(' ','-') }}">{{ p.title }}</a></h4>
+      <article class="white-panel"><a href="{{ p.url }}"><img src="https://cdn.arstechnica.net/wp-content/uploads/2017/12/RRS_PHEV_FirenzeRed_017-360x200.jpg" alt=""></a>
+        <h4><a href="/{{ p.url }}">{{ p.title }}</a></h4>
         {{ p.content|safe }}
       </article>
     {% endfor %}
