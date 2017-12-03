@@ -5,10 +5,9 @@ from flask_login import login_required
 from flask_security import SQLAlchemyUserDatastore, Security
 from flask_security.decorators import anonymous_user_required
 
-import global_vars
-import models
-from models import db, Page, Menu, User, Role, SiteConfiguration
-from views import PageModelView, MenuModelView, UserModelView, RoleModelView, SecuredHomeView, \
+import web_app.global_vars as global_vars
+from web_app.models import db, Page, Menu, User, Role, SiteConfiguration
+from web_app.views import PageModelView, MenuModelView, UserModelView, RoleModelView, SecuredHomeView, \
     SiteConfigurationView
 from sqlalchemy import func
 
@@ -26,7 +25,7 @@ def create_app():
     admin.add_view(RoleModelView(Role, db.session))
     admin.add_view(SiteConfigurationView(SiteConfiguration, db.session))
 
-    user_datastore = SQLAlchemyUserDatastore(db, models.User, models.Role)
+    user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security = Security(app, user_datastore)
 
     @app.before_first_request
