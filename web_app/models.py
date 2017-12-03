@@ -1,6 +1,6 @@
 from flask_security import RoleMixin, UserMixin
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, DateTime
 from sqlalchemy.orm import relationship, backref
 
 db = SQLAlchemy()
@@ -17,10 +17,25 @@ class Page(db.Model):
     is_homepage = Column(Boolean)
 
     subtype = Column(String, default='page')
+    subtype_data = Column(String)
 
     def __repr__(self):
         return self.title
 
+
+class Post(db.Model):
+    __tablename__ = 'post'
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String, nullable=False)
+    content = Column(String)
+    tag = Column(String)
+    keyword = Column(String)
+    stamp = Column(DateTime)
+    category = Column(String)
+
+    def __repr__(self):
+        return self.title
 
 class Menu(db.Model):
     __tablename__ = 'menu'

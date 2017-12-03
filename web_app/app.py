@@ -49,11 +49,15 @@ def create_app():
         else:
             page = Page.query.filter(func.lower(Page.title) == uri.lower()).first()
         menus = Menu.query.order_by('order')
+        print(uri, page)
 
-        views_= importlib.import_module('web_app.apps.{}.views'.format(page.subtype))
-        content = views_.process(page)
+        if page is None:
+            return uri
+        else:
+            views_= importlib.import_module('web_app.apps.{}.views'.format(page.subtype))
+            content = views_.process(page)
 
-        return render_template('index.html', global_vars=global_vars, content=content, menus=menus)
+            return render_template('index.html', global_vars=global_vars, content=content, menus=menus)
 
     @app.route('/register', methods=['GET', 'POST'])
     @anonymous_user_required

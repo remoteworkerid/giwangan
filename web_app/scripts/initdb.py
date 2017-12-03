@@ -1,9 +1,12 @@
 import os
 import sys
+
+from flask import json
+
 sys.path.append(os.getcwd() + "/web_app/")
 
 from app import create_app
-from models import User, db, Role, SiteConfiguration, Page, Menu
+from models import User, db, Role, SiteConfiguration, Page, Menu, Post
 
 app = create_app()
 
@@ -26,25 +29,18 @@ with app.app_context():
     site.youtube_link = 'https://www.youtube.com/user/swdevbali/'
     db.session.add(site)
 
+    # HomePage should display all featured post from all category, in pinterest like
     page = Page()
     page.title = "Homepage"
-    page.subtype = 'page'
-    page.content = \
-    '''
-    <h1>Welcome to Giwangan CMS!</h1>
-    <p>Could you please edit me? It will be a shame if the world find out that you are too lazy to edit the homepage 
-    of your own wesbite :)</p>    
-    '''
+    page.subtype = 'pinterestpage'
+    page.subtype_data = json.dumps({'show_post': True, 'tag': 'feature', 'count': 5, 'order_by': 'date'})
+    page.is_homepage = True
     db.session.add(page)
 
     gaming_page = Page()
     gaming_page.title = "Gaming"
     gaming_page.subtype = 'pinterestpage'
-    gaming_page.is_homepage = True
-    gaming_page.content = \
-        '''
-        Pinterest like is here
-        '''
+    gaming_page.subtype_data = json.dumps({'show_post': True, 'category': 'gaming', 'count': 5, 'order_by': 'date'})
     db.session.add(gaming_page)
     db.session.commit()
 
@@ -55,3 +51,25 @@ with app.app_context():
     db.session.add(menu)
     db.session.commit()
 
+    post = Post()
+    post.title = 'Doom VFR datang!'
+    post.content = \
+        '''
+        <h1>Doom!</h1>
+        <p>Probably the best that happened since bread</p>    
+        '''
+    post.category = 'gaming'
+    post.tag = 'doom,vr,feature'
+    db.session.add(post)
+
+    post = Post()
+    post.title = 'Bug memalukan pada OSX Sierra'
+    post.content = \
+        '''
+        <h1>Siapa yang salah ini?</h1>
+        <p>Masa' bisa begitu saja error?</p>    
+        '''
+    post.category = 'IT'
+    post.tag = 'osx,feature'
+    db.session.add(post)
+    db.session.commit()
