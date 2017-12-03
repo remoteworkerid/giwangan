@@ -12,6 +12,8 @@ import os
 import os.path as op
 '''
 http://docs.sqlalchemy.org/en/latest/core/constraints.html
+http://docs.sqlalchemy.org/en/rel_0_9/orm/basic_relationships.html
+http://docs.sqlalchemy.org/en/rel_0_9/orm/tutorial.html#configuring-delete-delete-orphan-cascade
 '''
 
 db = SQLAlchemy()
@@ -33,6 +35,9 @@ class Page(db.Model):
     stamp = Column(DateTime)
     category = Column(String)
     url = Column(String, nullable=False)
+
+    image_id = Column(Integer, ForeignKey('image.id'))
+    feature_image = relationship('Image', backref='Page', cascade='all,delete')
 
     def __repr__(self):
         return self.title
@@ -76,7 +81,7 @@ class Image(db.Model):
     path = db.Column(db.Unicode(128))
 
     def __repr__(self):
-        return self.name
+        return self.path
 
 
 @listens_for(Image, 'after_delete')
