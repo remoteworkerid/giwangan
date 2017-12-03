@@ -50,3 +50,14 @@
         border-top:0 none;
     }
 }
+.navbar-default .navbar-nav > .active{
+    color: #fff;
+    background: #d65c14;
+    font-weight: bold;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #fff;
+    background: #d65c14;
+}

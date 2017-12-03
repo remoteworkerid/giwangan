@@ -53,7 +53,6 @@ def create_app():
         else:
             page = Page.query.filter(Page.url == uri).first()
         menus = Menu.query.order_by('order')
-        print(uri, page)
 
         if page is None:
             return uri

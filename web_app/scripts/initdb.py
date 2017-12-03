@@ -48,6 +48,19 @@ with app.app_context():
     menu.page_id = gaming_page.id #NOTE: As it refer to gaming_page.id, we need to commit gaming_page first
     menu.order = 1
     db.session.add(menu)
+
+    it_page = Page()
+    it_page.title = "IT"
+    it_page.subtype = 'pinterestpage'
+    it_page.subtype_data = json.dumps({'show_post': True, 'category': 'it', 'count': 5, 'order_by': 'date'})
+    db.session.add(it_page)
+    db.session.commit()
+
+    menu = Menu()
+    menu.title = 'IT'
+    menu.page_id = it_page.id  # NOTE: As it refer to gaming_page.id, we need to commit gaming_page first
+    menu.order = 1
+    db.session.add(menu)
     db.session.commit()
 
     # All initial posts
@@ -69,7 +82,7 @@ with app.app_context():
         <h1>Siapa yang salah ini?</h1>
         <p>Masa' bisa begitu saja error?</p>    
         '''
-    post.category = 'IT'
+    post.category = 'it'
     post.tag = 'osx,feature'
     db.session.add(post)
     db.session.commit()
