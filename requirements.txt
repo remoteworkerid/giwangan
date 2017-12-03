@@ -8,3 +8,4 @@ flask-wtf
 flask-security
 bcrypt
 flask-mail
+pillow

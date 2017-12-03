@@ -1,10 +1,15 @@
 from flask_security import RoleMixin, UserMixin
 from flask_sqlalchemy import SQLAlchemy
+from flask_admin import form
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, DateTime
+from sqlalchemy.event import listens_for
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import event
 
-
+import settings
+from utils import get_safe_url
+import os
+import os.path as op
 '''
 http://docs.sqlalchemy.org/en/latest/core/constraints.html
 '''
@@ -33,18 +38,13 @@ class Page(db.Model):
         return self.title
 
 
-def before_insert_update_listener(mapper, connection, target):
+def page_before_insert_update_listener(mapper, connection, target):
     if target.url is None:
-        target.url = target.title.replace(' ', '-').lower()
+        target.url = get_safe_url(target.title)
 
-        import re
-        regex = re.compile('[^a-zA-Z\-]')
-        print(target.url)
-        target.url = (regex.sub('', target.url)).lower()
-        print(target.url)
 
-event.listen(Page, 'before_insert', before_insert_update_listener)
-event.listen(Page, 'before_update', before_insert_update_listener)
+event.listen(Page, 'before_insert', page_before_insert_update_listener)
+event.listen(Page, 'before_update', page_before_insert_update_listener)
 
 
 class Menu(db.Model):
@@ -71,6 +71,31 @@ class SiteConfiguration(db.Model):
     youtube_link = Column(String)
 
 
+class Image(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    path = db.Column(db.Unicode(128))
+
+    def __repr__(self):
+        return self.name
+
+
+@listens_for(Image, 'after_delete')
+def del_image(mapper, connection, target):
+    if target.path:
+        # Delete image
+        try:
+            os.remove(op.join(settings.FILE_PATH, target.path))
+        except OSError:
+            pass
+
+        # Delete thumbnail
+        try:
+            os.remove(op.join(settings.FILE_PATH,
+                              form.thumbgen_filename(target.path)))
+        except OSError:
+            pass
+
+# Flask-Security model requirements
 roles_users = db.Table('roles_users',
         db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
         db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
@@ -96,3 +121,4 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return self.email
+

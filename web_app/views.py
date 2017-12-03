@@ -2,11 +2,16 @@ from flask import url_for, request
 from flask_admin import BaseView, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 from flask_login import current_user
+from markupsafe import Markup
 from werkzeug.utils import redirect
 from wtforms import TextAreaField
 from wtforms.widgets import TextArea
+from flask_admin import form
 
 # https://stackoverflow.com/questions/34971368/getting-ckeditor-to-work-with-flask-admin
+import settings
+
+
 class CKEditorWidget(TextArea):
     def __call__(self, field, **kwargs):
         if kwargs.get('class'):
@@ -64,3 +69,23 @@ class RoleModelView(AdminOnlyModelView):
 
 class SiteConfigurationView(AdminOnlyModelView):
     pass
+
+
+class ImageView(AdminOnlyModelView):
+    def _list_thumbnail(view, context, model, name):
+        if not model.path:
+            return ''
+        url = '/static/upload/' + form.thumbgen_filename(model.path)
+        return Markup('<a href="{}" target="_blank"><img src="{}"></a>'.format(url, url))
+
+    column_formatters = {
+        'path': _list_thumbnail
+    }
+
+    # Alternative way to contribute field is to override it completely.
+    # In this case, Flask-Admin won't attempt to merge various parameters for the field.
+    form_extra_fields = {
+        'path': form.ImageUploadField('Image',
+                                      base_path=settings.FILE_PATH,
+                                      thumbnail_size=(100, 100, True))
+    }

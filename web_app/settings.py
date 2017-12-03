@@ -18,3 +18,11 @@ SECURITY_SEND_REGISTER_EMAIL = False
 
 #once register, set this as admin
 ADMIN_ACCOUNT = 'swdev.bali@gmail.com'
+
+import os
+import os.path as op
+FILE_PATH = op.join(op.dirname(__file__), 'static', 'upload')
+try:
+    os.mkdir(FILE_PATH)
+except OSError:
+    pass

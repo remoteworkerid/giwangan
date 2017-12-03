@@ -10,9 +10,9 @@ from flask_security import SQLAlchemyUserDatastore, Security
 from flask_security.decorators import anonymous_user_required
 
 import global_vars as global_vars
-from models import db, Page, Menu, User, Role, SiteConfiguration
+from models import db, Page, Menu, User, Role, SiteConfiguration, Image
 from views import PageModelView, MenuModelView, UserModelView, RoleModelView, SecuredHomeView, \
-    SiteConfigurationView
+    SiteConfigurationView, ImageView
 from sqlalchemy import func
 
 
@@ -28,6 +28,7 @@ def create_app():
     admin.add_view(UserModelView(User, db.session))
     admin.add_view(RoleModelView(Role, db.session))
     admin.add_view(SiteConfigurationView(SiteConfiguration, db.session))
+    admin.add_view(ImageView(Image, db.session))
 
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security = Security(app, user_datastore)
