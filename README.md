@@ -8,3 +8,8 @@ Once, I use Wordpress for my Python course related site. But, Python programmer 
 
 #PROJECT STATE
 - Still in heavy development
+
+#TEST CASE
+- News site
+- eCommerce
+- Course Site

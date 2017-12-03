@@ -33,9 +33,11 @@ class Post(db.Model):
     keyword = Column(String)
     stamp = Column(DateTime)
     category = Column(String)
+    url = Column(String)
 
     def __repr__(self):
         return self.title
+
 
 class Menu(db.Model):
     __tablename__ = 'menu'
