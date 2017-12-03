@@ -50,6 +50,7 @@ with app.app_context():
     db.session.add(menu)
     db.session.commit()
 
+    # All initial posts
     post = Page()
     post.title = 'Doom VFR datang!'
     post.content = \

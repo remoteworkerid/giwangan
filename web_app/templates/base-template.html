@@ -48,7 +48,8 @@
       <ul class="nav navbar-nav">
         {% for menu in menus %}
         <li class="nav-item">
-            <a href="/{{ menu.page.title|lower }}" class="nav-link"><span class="glyphicon"></span>{{ menu.title }}</a>
+            <a href="/{{ menu.page.title|lower }}"  class="nav-link"><span class="glyphicon"></span>{{ menu.title }}
+            <span class="sr-only">(current)</span></a>
         </li>
         {% endfor %}
 
@@ -138,6 +139,9 @@
 </nav>
 
     <div class="container">
+        {% if feature_image is not none %}
+      <img src="/static/upload/{{ feature_image }}"/>
+        {% endif %}
         {{ content|safe }}
     </div><!-- /.container -->
 
