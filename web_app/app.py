@@ -61,20 +61,20 @@ def create_app():
     @app.route('/')
     @app.route('/<uri>')
     def index(uri=None):
+        print(uri)
         import importlib
         if uri is None:
             page = Page.query.filter_by(is_homepage=True).first()
         else:
             page = Page.query.filter(Page.url == uri).first()
         menus = Menu.query.order_by('order')
-
         if page is None:
             return uri
         else:
             views_= importlib.import_module('web_app.apps.{}.views'.format(page.subtype))
             content = views_.process(page)
-
-            return render_template('index.html', global_vars=global_vars, content=content, menus=menus)
+            og = views_.get_og(page)
+            return render_template('index.html', global_vars=global_vars, content=content, menus=menus, og=og)
 
     @app.route('/register', methods=['GET', 'POST'])
     @anonymous_user_required

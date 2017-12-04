@@ -13,3 +13,6 @@ def process(page):
         elif 'category' in data and data['category']:
             posts = Page.query.filter(Page.category == data['category']).all()
     return render_template('pinterestpage/content.html', posts=posts, global_vars=global_vars)
+
+def get_og(page):
+    return None
