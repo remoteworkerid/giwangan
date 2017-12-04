@@ -14,7 +14,7 @@ def get_og(page):
         og['title'] = page.title
         og['description'] = page.excerpt
         if page.feature_image is not None:
-            og['image'] = 'http://nezzmedia.com/static/upload/{}'.join(page.feature_image.name)
+            og['image'] = 'http://nezzmedia.com/static/upload/{}'.join(page.feature_image.path)
         else:
             og['image'] = 'http://nezzmedia.com/static/favicon.ico'
         return og
