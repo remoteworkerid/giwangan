@@ -5,15 +5,13 @@ sys.path.append(os.getcwd() + "/web_app/")
 import flask_security
 from flask import Flask, render_template
 from flask_admin import Admin
-from flask_login import login_required
 from flask_security import SQLAlchemyUserDatastore, Security
 from flask_security.decorators import anonymous_user_required
 
 import global_vars as global_vars
-from models import db, Page, Menu, User, Role, SiteConfiguration, Image
+from models import db, Page, Menu, User, Role, SiteConfiguration, Image, AdsenseCode, AdsenseType
 from views import PageModelView, MenuModelView, UserModelView, RoleModelView, SecuredHomeView, \
     SiteConfigurationView, ImageView
-from sqlalchemy import func
 
 
 def create_app():
@@ -43,6 +41,12 @@ def create_app():
             global_vars.SITE_TAGLINE = siteconfiguration.tagline
             global_vars.SHOW_REGISTRATION_MENU = siteconfiguration.show_registration_menu
             global_vars.YOUTUBE_LINK = siteconfiguration.youtube_link
+            global_vars.GA_TRACKING_CODE = siteconfiguration.ga_tracking_code
+
+            #check inapp ads: expecting to have one
+            ads = db.session.query(AdsenseCode).join(AdsenseType).filter(AdsenseType.name == 'In-article').first()
+            if ads is not None:
+                global_vars.ADSENSE_INAPP_ARTICLE_CODE = ads.code
 
     @app.route('/')
     @app.route('/<uri>')
@@ -58,7 +62,7 @@ def create_app():
             return uri
         else:
             views_= importlib.import_module('web_app.apps.{}.views'.format(page.subtype))
-            content, feature_image = views_.process(page)
+            content, feature_image, title = views_.process(page)
 
             return render_template('index.html', global_vars=global_vars, content=content, feature_image=feature_image,
                                    menus=menus)

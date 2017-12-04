@@ -74,6 +74,7 @@ class SiteConfiguration(db.Model):
     tagline = Column(String, nullable=False)
     show_registration_menu = Column(Boolean)
     youtube_link = Column(String)
+    ga_tracking_code = Column(String)
 
 
 class Image(db.Model):
@@ -99,6 +100,21 @@ def del_image(mapper, connection, target):
                               form.thumbgen_filename(target.path)))
         except OSError:
             pass
+
+
+class AdsenseType(db.Model):
+    __tablename__ = 'adsense_type'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+
+
+class AdsenseCode(db.Model):
+    __tablename__ = 'adsense_code'
+    id = db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.String)
+
+    adstype_id = Column(Integer, ForeignKey('adsense_type.id'))
+    adstype = relationship('AdsenseType', backref='AdsenseCode', cascade='all,delete')
 
 # Flask-Security model requirements
 roles_users = db.Table('roles_users',

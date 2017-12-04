@@ -1,11 +1,13 @@
 import os
 import sys
+
 sys.path.append(os.getcwd() + "/web_app/")
+from utils import readfile
 
 from flask import json
 
 from app import create_app
-from models import User, db, Role, SiteConfiguration, Page, Menu
+from models import User, db, Role, SiteConfiguration, Page, Menu, AdsenseType, AdsenseCode
 
 app = create_app()
 
@@ -26,6 +28,7 @@ with app.app_context():
     site.tagline = 'Days of Fun from All Over The World'
     site.show_registration_menu = True
     site.youtube_link = 'https://www.youtube.com/user/swdevbali/'
+    site.ga_tracking_code = 'UA-99596173-4'
     db.session.add(site)
 
     # HomePage should display all featured post from all category, in pinterest like
@@ -66,11 +69,7 @@ with app.app_context():
     # All initial posts
     post = Page()
     post.title = 'Doom VFR datang!'
-    post.content = \
-        '''
-        <h1>Doom!</h1>
-        <p>Probably the best that happened since bread</p>    
-        '''
+    post.content = readfile(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'doomfvr.txt'))
     post.category = 'gaming'
     post.tag = 'doom,vr,feature'
     db.session.add(post)
@@ -85,4 +84,27 @@ with app.app_context():
     post.category = 'it'
     post.tag = 'osx,feature'
     db.session.add(post)
+    db.session.commit()
+
+    adstype_inarticle = AdsenseType()
+    adstype_inarticle.name = 'In-article'
+    db.session.add(adstype_inarticle)
+    db.session.commit()
+
+    adsense = AdsenseCode()
+    adsense.adstype_id = adstype_inarticle.id
+    adsense.code = \
+"""
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3131828654572794"
+     data-ad-slot="2968395654"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+"""
+    db.session.add(adsense)
     db.session.commit()

@@ -1,0 +1,38 @@
+Pertama kali saya menguji headset VR modern, saya bermain Doom.
+
+Demo tahun 2013 PAX West saya datang dari eksekutif Oculus Brendan Iribe, yang memasang headset VR yang terpasang di dompet, sebelum menyalakan versi modifikasi Doom 3. Hampir seketika, saya memuji perendaman itu. Aku melepaskan dan menumbuhkan kemampuanku untuk segera mengalihkan kepalaku ke barisan tembakan setan. Saya menghargai trik pencahayaan dan perspektif yang digunakan untuk menyampaikan betapa banyak kekacauan yang terjadi di sekitarku. Tidak ada yang seperti saat itu.
+
+Oculus terus menunjukkan perkembangan Doom 3 ini pada acara lain untuk menghidupkan kegembiraan untuk headset akhirnya, fakta yang tidak hilang pada orang-orang yang kebetulan memiliki lisensi Doom. Pertempuran hukum berikutnya antara Bethesda dan Oculus telah menjadi legenda, namun tidak ada tuntutan hukum yang bisa menghapus kaitan intrinsik yang diciptakan antara Doom dan VR oleh demo formatif ini.
+
+Itu banyak bagasi untuk permainan video yang sudah lama ditunggu-tunggu, tapi akhirnya, dunia memiliki game Doom VR pertamanya yang resmi dan penuh. (Anda mungkin bisa menebak apa yang dimaksud dengan "F" dalam nama resminya, Doom VFR.) Namun, ini tidak mendarat dengan robekan logam berat, namun dengan ledakan senapan yang sangat masuk akal. Doom VFR benar-benar bagus bila Anda bisa memainkannya di PC dengan kit HTC Vive VR penuh. Pada platform itu, elemen-elemen yang berhasil memuaskan Doom 2016 bertabrakan dengan optimalisasi VR underwhelming dan runtime yang minim beberapa jam.
+
+Sayangnya, game ini juga telah disandingkan dengan PlayStation VR, dan hasilnya hampir tidak mungkin untuk direkomendasikan.
+
+Teleport ke Neraka
+
+Bagaimana Doom VFR terlihat beraksi di PSVR, termasuk UI yang selalu ada untuk info kesehatan, senjata, dan banyak lagi.
+Setelah Anda melemahkan musuh cukup, itu akan bersinar, seperti pada game 2D tahun lalu. Teleport ke iblis pada saat itu untuk "kemuliaan membunuh" itu untuk dorongan kesehatan. (Gambar PSVR.)
+Sayangnya, selama musim panas pertempuran, mudah kehilangan informasi tentang info kesehatan dan amunisi tersebut, karena tempatnya di tikungan dan kurangnya data petunjuk perifer (seperti, katakanlah, warna yang berubah atau berkedip). Biasanya kejutan saat kamu mati. (Gambar PSVR.)
+Skala penjahat Doom yang paling menakutkan benar-benar mengesankan dalam panasnya baku tembak yang baik. (Gambar HTC Vive.)
+Dua gambar terakhir di sini benar-benar manis dibandingkan dengan bagaimana permainan terlihat pada headset VR yang downscaled.
+Ini menangkap semangat Doom VFR, tapi bahkan rig pengujian 1080Ti kami tidak dapat memperoleh resolusi dan dampaknya sampai tingkat itu.
+
+Doom VFR mirip dengan reboot 2016 Doom, di mana pemain diturunkan ke pos militer yang dibanjiri setan di Mars sebelum akhirnya turun ke Neraka. Anda mengendalikan seorang tentara yang berbeda satu tahun kemudian, dan dia dengan suara keras menemukan berbagai orang dan tujuan sebagai narator yang menjengkelkan. Aspek VFR Doom ini mengecewakan dibandingkan dengan sikap "eff the plot" dari "Doom guy" di versi tahun lalu, tapi dia cukup mudah untuk mengabaikannya. Yang perlu Anda ketahui: Iblis buruk. Kamu punya senjata Waktunya membunuh.
+
+BACAAN LEBIH LANJUT
+Doom (2016) review pemain tunggal: Kembali ke hal mendasar
+Penembak VR adalah jenis yang berbeda dari saudara kandung layar standar mereka, tentu saja. Terus berlari, melompat, dan berputar yang mungkin Anda lakukan dengan mouse atau joystick tidak harus diterjemahkan ke VR, apakah karena pemain tidak memiliki ruang fisik untuk bergerak atau karena begitu banyak gerak dapat membuat pemain merasa pusing jika mereka ' Sebenarnya tidak bergerak dalam kehidupan nyata. Saya berpendapat bahwa game "adventure-shooter" VR yang paling sukses tahun ini, eksklusif Farll PSVR, menarik ini dengan menggabungkan sistem turn and move yang nyaman dengan filosofi desain level "always run forward" yang cerdas.
+
+Doom VFR sedikit lebih rumit. Saat-saat yang paling penuh aksi berkisar pada pertempuran di dalam arena berjejer besar dan multi-level (kebanyakan yang baru, yang tidak porting pada game 2016) di mana musuh berkerumun ke segala arah. Dengan demikian, Anda perlu berputar dan bergerak cepat untuk bertahan. Jika Anda bermain di HTC Vive, Anda tidak akan memiliki joystick, karena tongkat yang dilacak gerakannya tidak memilikinya. Sebagai gantinya, Anda akan bergantung pada gabungan tombol "teleport" dan tombol "dasbor".
+
+BACAAN LEBIH LANJUT
+Sony Farpoint jatuh pendek dari VR terbaik FPS belum
+Yang pertama memungkinkan Anda menekan tombol, mengarahkan tangan kiri ke suatu tempat, dan otomatis melengkung ke titik itu, selama panah penunjuk Anda berwarna hijau saat Anda melepaskannya. Anda bisa naik ke platform tinggi atau turun ke kedalaman dan menuruni tangga dengan teleport. Tombol dasbor, di sisi lain, hanya bekerja pada ketinggian yang sama dengan yang Anda miliki, dan ini akan memberi Anda beberapa langkah ke arah mana pun yang Anda sentuh.
+
+Kedua manuver ini membutuhkan penekanan pada touchpad raksasa Vive, dan jika Anda menekan titik yang salah di pad, Anda akan segera melakukan instilasi daripada melakukan teleportasi. Ini aneh, karena langkah teleportasi mengharuskan menahan alasnya; Mengapa Perangkat lunak tidak mengizinkan hal ini bekerja dengan ibu jari Anda di titik mana pun dari touchpad? Ini mungkin tampak seperti pembedaan yang konyol, tapi saat Anda sedang dalam pertempuran yang gila dan tidak bisa mengelola teleport Anda dengan baik karena sistem yang sangat buruk, kemarahannya berkembang dengan cepat - dan karena alasan yang salah.
+
+Selain gangguan itu, bagaimanapun, warping dan peledakan di salah satu arena Doom VFR bisa sangat memuaskan. Alih-alih mencoba membuat permainan blaster yang seimbang ini, Software id memilih memutar-mutar kekuatan permainan dan bahayanya secara bersamaan. Pahlawan Anda mulai menggunakan senjata dan amunisi satu omong kosong, bersama dengan gerakan "membekukan musuh terdekat" dan sejumlah kontrol lambat saat mengarahkan dan melakukan teleportasi. Untuk mengimbangi kemungkinan ini terlalu kuat, pertempuran Doom VFR mencampakkan kesalahan, orang jahat yang hebat setelah orang gila dan jahat ke bidang pandang Anda.
+
+Plus, mekanik "kemuliaan membunuh" kembali dari permainan tahun lalu, meski sekarang di VR, Anda cukup teleport langsung ke tubuh musuh saat telah melemah. Lakukan ini, dan tubuhnya meledak di sekitar Anda dalam gibs berdarah. Sayangnya, serangan insta-splode ini beriringan dengan aneh dan terasa jauh kurang memuaskan daripada manuver jarak dekat yang melee di versi 2016.
+
+Namun, langkah pemindahan kemuliaan menawarkan dorongan "mendapatkan kesehatan" yang bagus untuk teleport ke dalam kegilaan, dan permainan pada akhirnya menghasilkan serangkaian pertempuran yang mengerikan dan mengasyikkan ... selama mereka bertahan. Doom VFR mencapai puncaknya kira-kira empat jam, dan separuh waktu itu diliputi oleh tugas pengisian waktu yang "membosankan di sekitar rumah Anda" di antara pertempuran besar. Ini memerlukan teleport sekitar sampai Anda melengkung ke titik yang tepat untuk memicu tuas dan tangkapan barang, dan
