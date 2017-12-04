@@ -1,6 +1,6 @@
 TITLE = 'Pythonthusiast'
 TAGLINE = 'Remote Work Mentoring'
-DEBUG = True
+DEBUG = False
 GREETING = 'Halo Dunia. Apa kabar?'
 
 SQLALCHEMY_DATABASE_URI = 'postgresql://devuser:devpassword@postgres:5432/web_app'
