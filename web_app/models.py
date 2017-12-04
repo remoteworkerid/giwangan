@@ -24,6 +24,7 @@ class Page(db.Model):
 
     id = Column(Integer, primary_key=True)
     title = Column(String, nullable=False)
+    excerpt = Column(String, nullable=True)
     content = Column(String)
     tag = Column(String)
     keyword = Column(String)

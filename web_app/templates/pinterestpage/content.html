@@ -37,13 +37,13 @@ stylize any heading tags withing white-panel below
 <section id="pinBoot">
 
     {% for p in posts %}
-      <article class="white-panel"><a href="{{ p.url }}"><img src="/static/upload/{{ p.feature_image.path }}" alt=""></a>
+      <article class="white-panel"><a href="{{ p.url }}"><img class="img-responsive img-rounded" src="/static/upload/{{ p.feature_image.path }}" alt=""></a>
         <h4><a href="/{{ p.url }}">{{ p.title }}</a></h4>
-        {{ p.content|safe }}
+        {{ p.excerpt|safe }}
       </article>
-        {% if loop.index == 1 %}
+        {% if loop.index == 1 and not global_vars.ADSENSE_INFEED_CODE is none %}
         <article class="white-panel">
-        {{ global_vars.ADSENSE_INAPP_ARTICLE_CODE|safe }}
+        {{ global_vars.ADSENSE_INFEED_CODE|safe }}
       </article>
         {% endif %}
     {% endfor %}

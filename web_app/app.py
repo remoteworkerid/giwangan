@@ -43,10 +43,20 @@ def create_app():
             global_vars.YOUTUBE_LINK = siteconfiguration.youtube_link
             global_vars.GA_TRACKING_CODE = siteconfiguration.ga_tracking_code
 
-            #check inapp ads: expecting to have one
-            ads = db.session.query(AdsenseCode).join(AdsenseType).filter(AdsenseType.name == 'In-article').first()
+            #page level ads
+            ads = db.session.query(AdsenseCode).join(AdsenseType).filter(AdsenseType.name == 'Page-level Ads').first()
+            if ads is not None:
+                global_vars.ADSENSE_PAGELEVEL_CODE = ads.code
+
+            #inapp ads
+            ads = db.session.query(AdsenseCode).join(AdsenseType).filter(AdsenseType.name == 'In-article Ads').first()
             if ads is not None:
                 global_vars.ADSENSE_INAPP_ARTICLE_CODE = ads.code
+
+            # infeed
+            ads = db.session.query(AdsenseCode).join(AdsenseType).filter(AdsenseType.name == 'In-feed Ads').first()
+            if ads is not None:
+                global_vars.ADSENSE_INFEED_CODE = ads.code
 
     @app.route('/')
     @app.route('/<uri>')
@@ -62,10 +72,9 @@ def create_app():
             return uri
         else:
             views_= importlib.import_module('web_app.apps.{}.views'.format(page.subtype))
-            content, feature_image, title = views_.process(page)
+            content = views_.process(page)
 
-            return render_template('index.html', global_vars=global_vars, content=content, feature_image=feature_image,
-                                   menus=menus)
+            return render_template('index.html', global_vars=global_vars, content=content, menus=menus)
 
     @app.route('/register', methods=['GET', 'POST'])
     @anonymous_user_required

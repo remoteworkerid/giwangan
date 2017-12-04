@@ -12,4 +12,4 @@ def process(page):
             posts = Page.query.filter(Page.tag.contains(data['tag'])).all()
         elif 'category' in data and data['category']:
             posts = Page.query.filter(Page.category == data['category']).all()
-    return render_template('pinterestpage/content.html', posts=posts, global_vars=global_vars), None, page.title
+    return render_template('pinterestpage/content.html', posts=posts, global_vars=global_vars)

@@ -69,6 +69,9 @@ with app.app_context():
     # All initial posts
     post = Page()
     post.title = 'Doom VFR datang!'
+    post.excerpt = """
+    Pertama kali saya menguji headset VR modern, saya bermain Doom.Demo tahun 2013 PAX West saya datang dari eksekutif Oculus Brendan Iribe, yang memasang headset VR yang terpasang di dompet, sebelum menyalakan versi modifikasi Doom 3. Hampir seketika, saya memuji perendaman itu. Aku melepaskan dan menumbuhkan kemampuanku untuk segera mengalihkan kepalaku ke barisan tembakan setan. Saya menghargai trik pencahayaan dan perspektif yang digunakan untuk menyampaikan betapa banyak kekacauan yang terjadi di sekitarku. Tidak ada yang seperti saat itu.
+    """
     post.content = readfile(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'doomfvr.txt'))
     post.category = 'gaming'
     post.tag = 'doom,vr,feature'
@@ -76,6 +79,9 @@ with app.app_context():
 
     post = Page()
     post.title = 'Bug memalukan pada OSX Sierra'
+    post.excerpt = """
+    Kekacauan yang luar biasa!
+    """
     post.content = \
         '''
         <h1>Siapa yang salah ini?</h1>
@@ -87,13 +93,13 @@ with app.app_context():
     db.session.commit()
 
     adstype_inarticle = AdsenseType()
-    adstype_inarticle.name = 'In-article'
+    adstype_inarticle.name = 'In-article Ads'
     db.session.add(adstype_inarticle)
     db.session.commit()
 
-    adsense = AdsenseCode()
-    adsense.adstype_id = adstype_inarticle.id
-    adsense.code = \
+    adsense_inarticle = AdsenseCode()
+    adsense_inarticle.adstype_id = adstype_inarticle.id
+    adsense_inarticle.code = \
 """
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <ins class="adsbygoogle"
@@ -106,5 +112,47 @@ with app.app_context():
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 """
-    db.session.add(adsense)
+    db.session.add(adsense_inarticle)
     db.session.commit()
+
+    adstype_pagelevel = AdsenseType()
+    adstype_pagelevel.name = 'Page-level Ads'
+    db.session.add(adstype_pagelevel)
+    db.session.commit()
+
+    adsense_pagelevel = AdsenseCode()
+    adsense_pagelevel.adstype_id = adstype_pagelevel.id
+    adsense_pagelevel.code = """
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-3131828654572794",
+    enable_page_level_ads: true
+  });
+</script>
+"""
+    db.session.add(adsense_pagelevel)
+    db.session.commit()
+
+    adstype_infeed = AdsenseType()
+    adstype_infeed.name = 'In-feed Ads'
+    db.session.add(adstype_infeed)
+    db.session.commit()
+
+    adsense_infeed = AdsenseCode()
+    adsense_infeed.adstype_id = adstype_infeed.id
+    adsense_infeed.code = """
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-8c+1v-dd+e2+ex"
+     data-ad-client="ca-pub-3131828654572794"
+     data-ad-slot="6969976572"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        """
+    db.session.add(adsense_infeed)
+    db.session.commit()
+

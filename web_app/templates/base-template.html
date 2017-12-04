@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% if not global_vars.GA_TRACKING_CODE is none %}
       <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-99596173-4"></script>
     <script>
@@ -10,6 +11,12 @@
 
       gtag('config', '{{ global_vars.GA_TRACKING_CODE }}');
     </script>
+    {% endif %}
+
+    {% if not global_vars.ADSENSE_PAGELEVEL_CODE is none %}
+    {{ global_vars.ADSENSE_PAGELEVEL_CODE|safe }}
+    {% endif %}
+
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
