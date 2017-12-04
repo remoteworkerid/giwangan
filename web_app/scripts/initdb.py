@@ -25,7 +25,7 @@ with app.app_context():
 
     site = SiteConfiguration()
     site.name = 'NezzMedia'
-    site.tagline = 'Days of Fun from All Over The World'
+    site.tagline = 'Fun Lifestyle'
     site.show_registration_menu = True
     site.youtube_link = 'https://www.youtube.com/user/swdevbali/'
     site.ga_tracking_code = 'UA-99596173-4'
