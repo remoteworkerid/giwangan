@@ -2,6 +2,7 @@ import os
 import sys
 sys.path.append(os.getcwd() + "/web_app/")
 
+import humanize
 import flask_security
 from flask import Flask, render_template
 from flask_admin import Admin
@@ -80,5 +81,10 @@ def create_app():
     @anonymous_user_required
     def register():
         return flask_security.views.register()
+
+    @app.template_filter('friendly_time')
+    def friendly_time(date):
+        # humanize.i18n.activate('in_ID')
+        return humanize.naturaltime(date)
 
     return app

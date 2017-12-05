@@ -9,3 +9,4 @@ flask-security
 bcrypt
 flask-mail
 pillow
+humanize

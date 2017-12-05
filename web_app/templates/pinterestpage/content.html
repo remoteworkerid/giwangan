@@ -40,6 +40,8 @@ stylize any heading tags withing white-panel below
       <article class="white-panel"><a href="{{ p.url }}"><img class="img-responsive img-rounded" src="/static/upload/{{ p.feature_image.path }}" alt=""></a>
         <h4><a href="/{{ p.url }}">{{ p.title }}</a></h4>
         {{ p.excerpt|safe }}
+          <a href="/{{ p.category }}"><span class="label label-success">{{ p.category }}</span></a>
+          <p>{{ p.stamp|friendly_time }}</p>
       </article>
         {% if loop.index == 1 and not global_vars.ADSENSE_INFEED_CODE is none %}
         <article class="white-panel">
