@@ -24,6 +24,9 @@ class PageState(db.Model):
     id = Column(Integer, primary_key=True)
     title = Column(String, nullable=False)
 
+    def __repr__(self):
+        return self.title
+
 
 class Page(db.Model):
     __tablename__ = 'page'
@@ -48,8 +51,6 @@ class Page(db.Model):
 
     pagestate_id = Column(Integer, ForeignKey('pagestate.id', name='fk_page_pagestate'))
     pagestate = relationship('PageState', backref='Page', cascade='all,delete')
-
-
 
     def __repr__(self):
         return self.title
