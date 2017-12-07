@@ -119,6 +119,9 @@ class AdsenseType(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
 
+    def __repr__(self):
+        return self.name
+
 
 class AdsenseCode(db.Model):
     __tablename__ = 'adsense_code'
@@ -127,6 +130,10 @@ class AdsenseCode(db.Model):
 
     adstype_id = Column(Integer, ForeignKey('adsense_type.id'))
     adstype = relationship('AdsenseType', backref='AdsenseCode', cascade='all,delete')
+
+
+    def __repr__(self):
+        return self.code
 
 # Flask-Security model requirements
 roles_users = db.Table('roles_users',

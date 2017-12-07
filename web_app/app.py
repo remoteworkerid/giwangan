@@ -1,5 +1,8 @@
 import os
 import sys
+
+from flask_admin.contrib.sqla import ModelView
+
 sys.path.append(os.getcwd() + "/web_app/")
 
 import humanize
@@ -28,6 +31,8 @@ def create_app():
     admin.add_view(RoleModelView(Role, db.session))
     admin.add_view(SiteConfigurationView(SiteConfiguration, db.session))
     admin.add_view(ImageView(Image, db.session))
+    admin.add_view(ModelView(AdsenseType, db.session))
+    admin.add_view(ModelView(AdsenseCode, db.session))
 
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security = Security(app, user_datastore)
