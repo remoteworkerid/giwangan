@@ -80,7 +80,8 @@ def create_app():
             views_= importlib.import_module('web_app.apps.{}.views'.format(page.subtype))
             content = views_.process(page)
             og = views_.get_og(page)
-            return render_template('index.html', global_vars=global_vars, content=content, menus=menus, og=og)
+            return render_template('index.html', global_vars=global_vars, content=content,
+                                   menus=menus, og=og, page=page)
 
     @app.route('/register', methods=['GET', 'POST'])
     @anonymous_user_required
