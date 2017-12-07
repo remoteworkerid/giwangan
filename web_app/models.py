@@ -19,6 +19,12 @@ http://docs.sqlalchemy.org/en/rel_0_9/orm/tutorial.html#configuring-delete-delet
 db = SQLAlchemy()
 
 
+class PageState(db.Model):
+    __tablename__ = 'pagestate'
+    id = Column(Integer, primary_key=True)
+    title = Column(String, nullable=False)
+
+
 class Page(db.Model):
     __tablename__ = 'page'
 
@@ -39,6 +45,11 @@ class Page(db.Model):
 
     image_id = Column(Integer, ForeignKey('image.id'))
     feature_image = relationship('Image', backref='Page', cascade='all,delete')
+
+    pagestate_id = Column(Integer, ForeignKey('pagestate.id', name='fk_page_pagestate'))
+    pagestate = relationship('PageState', backref='Page', cascade='all,delete')
+
+
 
     def __repr__(self):
         return self.title

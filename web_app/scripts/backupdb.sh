@@ -12,5 +12,11 @@ pg_dump --dbname=postgresql://devuser:devpassword@localhost:5434/web_app > ~/db.
 # drop db
 # dropdb -h localhost -p 5434 -U devuser web_app
 
+# create db
+# createdb -h localhost -p 5434 -U devuser web_app
+
 # load db
 # psql -h localhost -p 5434 -U devuser web_app < db.sql
+
+# start web_app
+# sudo docker-compose start web_app
