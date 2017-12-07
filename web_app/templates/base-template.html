@@ -22,7 +22,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    {% if not page.excerpt is none %}
     <meta name="description" content="{{ page.excerpt }}">
+    {% else %}
+    <meta name="description" content="{{ global_vars.DESCRIPTION }}">
+    {% endif %}
     <meta name="author" content="">
     <link rel="icon" href="/static/favicon.ico">
 

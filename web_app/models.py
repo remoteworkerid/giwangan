@@ -88,6 +88,7 @@ class SiteConfiguration(db.Model):
     show_registration_menu = Column(Boolean)
     youtube_link = Column(String)
     ga_tracking_code = Column(String)
+    description = Column(String)
 
 
 class Image(db.Model):

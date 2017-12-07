@@ -48,6 +48,7 @@ def create_app():
             global_vars.SHOW_REGISTRATION_MENU = siteconfiguration.show_registration_menu
             global_vars.YOUTUBE_LINK = siteconfiguration.youtube_link
             global_vars.GA_TRACKING_CODE = siteconfiguration.ga_tracking_code
+            global_vars.DESCRIPTION = siteconfiguration.description
 
             #page level ads
             ads = db.session.query(AdsenseCode).join(AdsenseType).filter(AdsenseType.name == 'Page-level Ads').first()
@@ -67,7 +68,6 @@ def create_app():
     @app.route('/')
     @app.route('/<uri>')
     def index(uri=None):
-        print(uri)
         import importlib
         if uri is None:
             page = Page.query.filter_by(is_homepage=True).first()
