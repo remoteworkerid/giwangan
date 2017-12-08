@@ -26,6 +26,10 @@ class CKEditorField(TextAreaField):
 
 
 class SecuredHomeView(AdminIndexView):
+
+    def __init__(self):
+        super(SecuredHomeView, self).__init__(template='admin/index.html', url='/admin')
+
     def is_accessible(self):
         return current_user.has_role('admin')
 
