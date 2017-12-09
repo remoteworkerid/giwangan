@@ -76,7 +76,7 @@
         {% if page.category is none %}
         {{ global_vars.SITE_NAME }}
         {% else %}
-        {{ page.category }}
+        {{ page.category|capitalize }}
         {% endif %}
       </a>
     </div>

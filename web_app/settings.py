@@ -20,7 +20,7 @@ SECURITY_SEND_REGISTER_EMAIL = False
 ADMIN_ACCOUNT = 'swdev.bali@gmail.com'
 
 #development, set 0 to refresh static cache
-SEND_FILE_MAX_AGE_DEFAULT = 0
+# SEND_FILE_MAX_AGE_DEFAULT = 0
 
 import os
 import os.path as op
