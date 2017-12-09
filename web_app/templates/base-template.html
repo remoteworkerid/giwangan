@@ -20,7 +20,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     {% if not page.excerpt is none %}
     <meta name="description" content="{{ page.excerpt }}">
@@ -177,13 +177,20 @@
   {% if not global_vars.ADSENSE_HEADER is none %}
   {{ global_vars.ADSENSE_HEADER | safe}}
   {% endif %}
-    <div class="container">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-md-8">
         {{ content|safe }}
+        </div>
 
 {% if not global_vars.ADSENSE_FOOTER is none %}
+        <div class="row">
+          <div class="col-xs-12 col-md-8" align="center">
   {{ global_vars.ADSENSE_FOOTER | safe}}
   {% endif %}
-
+          </div>
+        </div>
+      </div>
     </div><!-- /.container -->
 
   {% if not current_user.is_authenticated %}
