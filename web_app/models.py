@@ -7,9 +7,11 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy import event
 
 import settings
-from utils import get_safe_url
 import os
 import os.path as op
+
+from utils import get_safe_url
+
 '''
 http://docs.sqlalchemy.org/en/latest/core/constraints.html
 http://docs.sqlalchemy.org/en/rel_0_9/orm/basic_relationships.html
@@ -51,6 +53,8 @@ class Page(db.Model):
 
     pagestate_id = Column(Integer, ForeignKey('pagestate.id', name='fk_page_pagestate'))
     pagestate = relationship('PageState', backref='Page', cascade='all,delete')
+
+    pageviews = Column(Integer, default=0)
 
     def __repr__(self):
         return self.title

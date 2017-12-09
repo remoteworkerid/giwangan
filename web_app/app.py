@@ -13,9 +13,12 @@ from flask_security import SQLAlchemyUserDatastore, Security
 from flask_security.decorators import anonymous_user_required
 
 import global_vars as global_vars
-from models import db, Page, Menu, User, Role, SiteConfiguration, Image, AdsenseCode, AdsenseType
+from models import db, Page, Menu, User, Role, SiteConfiguration, Image, AdsenseCode, AdsenseType, PageState
 from views import PageModelView, MenuModelView, UserModelView, RoleModelView, SecuredHomeView, \
     SiteConfigurationView, ImageView
+
+from utils.humanize import number
+
 
 
 def create_app():
@@ -33,6 +36,7 @@ def create_app():
     admin.add_view(ImageView(Image, db.session))
     admin.add_view(ModelView(AdsenseType, db.session))
     admin.add_view(ModelView(AdsenseCode, db.session))
+    admin.add_view(ModelView(PageState, db.session))
 
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security = Security(app, user_datastore)
@@ -92,5 +96,9 @@ def create_app():
     def friendly_time(date):
         # humanize.i18n.activate('in_ID')
         return humanize.naturaltime(date)
+
+    @app.template_filter('friendly_number')
+    def friendly_number(n):
+        return number.intword(n)
 
     return app

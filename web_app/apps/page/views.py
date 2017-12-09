@@ -1,5 +1,6 @@
 from flask import render_template
 import global_vars
+from models import db, Page
 
 
 def process(page):
@@ -9,6 +10,11 @@ def process(page):
 def get_og(page):
     og = {}
     if page is not None:
+        # TODO: dump this to celery for updating
+        page.pageviews += 1
+        db.session.query(Page).filter_by(id=page.id).update({"pageviews": page.pageviews})
+        db.session.commit()
+
         og['url'] = '{}/{}'.format('http://nezzmedia.com', page.url)
         og['type'] = "article"
         og['title'] = page.title
