@@ -10,3 +10,4 @@ bcrypt
 flask-mail
 pillow
 humanize
+beautifulsoup4
