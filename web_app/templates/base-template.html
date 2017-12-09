@@ -28,7 +28,7 @@
     <meta name="description" content="{{ global_vars.DESCRIPTION }}">
     {% endif %}
     <meta name="author" content="">
-    <link rel="icon" href="/static/favicon.ico">
+    <link rel="icon" href="/static/favicon.png">
 
     <title>{{ global_vars.SITE_NAME }} - {{ global_vars.SITE_TAGLINE }}</title>
 
@@ -68,7 +68,7 @@
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-    <nav class="navbar navbar-default navbar-inverse" role="navigation">
+    <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -78,7 +78,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">{{ global_vars.SITE_NAME }}</a>
+      <a class="navbar-brand brand visible-lg" href="/">{{ global_vars.SITE_NAME }}</a>
+      <a class="navbar-brand brand hidden-lg" href="/"><img src="/static/logo.png"/> </a>
+      <a class="navbar-brand brand hidden-lg" href="/">
+        {% if not page.category is none %}
+        {{ page.category }}
+        {% endif %}
+      </a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
