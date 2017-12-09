@@ -210,12 +210,10 @@
       {% else %}
       <div class="row">
         <div class="col-xs-12 col-md-8">
-
-
           <div class="input-group">
-            <span class="glyphicon glyphicon-heart-empty input-group-addon"></span>
-            <textarea class="form-control custom-control" rows="1" style="resize:none" placeholder="{{ current_user.email }} .."></textarea>
-            <span class="glyphicon glyphicon-comment input-group-addon"></span>
+            <span id="button-of-love" class="glyphicon glyphicon-heart-empty input-group-addon"></span>
+            <textarea class="form-control custom-control" rows="1" style="resize:none" placeholder="{{ current_user.email }} Hold on, not yet. "></textarea>
+            <span id="button-of-speak" class="glyphicon glyphicon-comment input-group-addon"></span>
           </div>
         </div>
       </div>
@@ -243,5 +241,12 @@ single_column_breakpoint: 700
 });
 });
 </script>
-  </body>
-</html>
+    </div><!--container fluid -->
+
+<script>
+  $('#button-of-love').on('click', function (e) {
+
+     console.log('love!');
+
+})
+</script>
