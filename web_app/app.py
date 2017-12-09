@@ -69,6 +69,16 @@ def create_app():
             if ads is not None:
                 global_vars.ADSENSE_INFEED_CODE = ads.code
 
+            # header
+            ads = db.session.query(AdsenseCode).join(AdsenseType).filter(AdsenseType.name == 'Header Ads').first()
+            if ads is not None:
+                global_vars.ADSENSE_HEADER = ads.code
+
+            # footer
+            ads = db.session.query(AdsenseCode).join(AdsenseType).filter(AdsenseType.name == 'Footer Ads').first()
+            if ads is not None:
+                global_vars.ADSENSE_FOOTER = ads.code
+
     @app.route('/')
     @app.route('/<uri>')
     def index(uri=None):

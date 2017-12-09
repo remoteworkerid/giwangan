@@ -58,16 +58,6 @@
   </head>
 
   <body>
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- nezzmedia_responsive_header -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-3131828654572794"
-     data-ad-slot="5345402705"
-     data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
     <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -180,29 +170,27 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
+  {% if not global_vars.ADSENSE_HEADER is none %}
+  {{ global_vars.ADSENSE_HEADER | safe}}
+  {% endif %}
     <div class="container">
         {{ content|safe }}
 
-<!-- nezzmedia_bottom_article -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:300px;height:250px"
-     data-ad-client="ca-pub-3131828654572794"
-     data-ad-slot="6946258982"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+{% if not global_vars.ADSENSE_FOOTER is none %}
+  {{ global_vars.ADSENSE_FOOTER | safe}}
+  {% endif %}
 
     </div><!-- /.container -->
 
+  {% if not current_user.is_authenticated %}
   <div class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
-      <a href="{{ global_vars.YOUTUBE_LINK }}" target="_blank" class="navbar-btn btn-danger btn pull-right">
-      <span class="glyphicon glyphicon-star"></span>  Subscribe on YouTube</a>
+      <a href="{{ url_for_security('register') }}{% if 'next' in request.args %}?next={{ request.args.next|urlencode }}{% endif %}" class="navbar-btn btn-danger btn pull-right">
+      Be the first 100 Nezzers and claimed the prize!!</a>
+
     </div>
-
-
   </div>
+    {% endif %}
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
