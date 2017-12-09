@@ -1,4 +1,12 @@
+h1,h2,h3,h4 {
+    font-family: 'Lobster', cursive;
+}
+p {
+    font-family: 'Overlock', cursive;
+    font-size: 12;
+}
 
+ol li { font-family: 'Overlock', cursive; }
 #login-dp{
     min-width: 250px;
     padding: 14px 14px 0;

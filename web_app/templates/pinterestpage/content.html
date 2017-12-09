@@ -38,8 +38,8 @@ stylize any heading tags withing white-panel below
 
     {% for p in posts %}
       <article class="white-panel"><a href="{{ p.url }}"><img class="img-responsive img-rounded" src="/static/upload/{{ p.feature_image.path }}" alt=""></a>
-        <h4><a href="/{{ p.url }}">{{ p.title }}</a></h4>
-        {{ p.excerpt|safe }}
+        <h3><a href="/{{ p.url }}">{{ p.title }}</a></h3>
+        <p>{{ p.excerpt|safe }}</p>
           <p>
           <a href="/{{ p.category }}"><span class="label label-success pull-left">{{ p.category }}</span></a>
           <!--<p>{{ p.stamp|friendly_time }}</p>-->

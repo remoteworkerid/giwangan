@@ -47,6 +47,8 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
       <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Overlock:400i" rel="stylesheet">
 
     {% if not og is none %}
     <meta property="og:url"                content="{{ og.url }}" />
@@ -71,7 +73,9 @@
       <a class="navbar-brand brand visible-lg" href="/">{{ global_vars.SITE_NAME }}</a>
       <a class="navbar-brand brand hidden-lg" href="/"><img src="/static/logo.png"/> </a>
       <a class="navbar-brand brand hidden-lg" href="/">
-        {% if not page.category is none %}
+        {% if page.category is none %}
+        {{ global_vars.SITE_NAME }}
+        {% else %}
         {{ page.category }}
         {% endif %}
       </a>
