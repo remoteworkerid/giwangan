@@ -1,4 +1,6 @@
 from flask import render_template
+from flask_login import current_user
+
 import global_vars
 from models import db, Page
 
@@ -11,9 +13,10 @@ def get_og(page):
     og = {}
     if page is not None:
         # TODO: dump this to celery for updating
-        page.pageviews += 1
-        db.session.query(Page).filter_by(id=page.id).update({"pageviews": page.pageviews})
-        db.session.commit()
+        if not current_user.has_role('admin'):
+            page.pageviews += 1
+            db.session.query(Page).filter_by(id=page.id).update({"pageviews": page.pageviews})
+            db.session.commit()
 
         og['url'] = '{}/{}'.format('http://nezzmedia.com', page.url)
         og['type'] = "article"
