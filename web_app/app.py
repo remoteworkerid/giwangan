@@ -26,7 +26,7 @@ def create_app():
     app.config.from_pyfile('settings.py')
     db.init_app(app)
 
-    admin = Admin(app, name=app.config['TITLE'], template_mode='bootstrap3', index_view=SecuredHomeView())
+    admin = Admin(app, name='Giwangan', template_mode='bootstrap3', index_view=SecuredHomeView())
 
     admin.add_view(PageModelView(Page, db.session))
     admin.add_view(MenuModelView(Menu, db.session))
