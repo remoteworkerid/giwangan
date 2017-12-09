@@ -7,6 +7,10 @@ h1,h2,h3,h4 {
 }*/
 
 ol li { font-family: 'Overlock', cursive; }
+
+body {
+    padding-bottom: 60px;
+}
 #login-dp{
     min-width: 250px;
     padding: 14px 14px 0;

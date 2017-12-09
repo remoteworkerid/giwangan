@@ -198,18 +198,31 @@
       </div>
     </div><!-- /.container -->
 
-  {% if not current_user.is_authenticated %}
-  <div class="navbar navbar-default navbar-fixed-bottom">
+  <div class="navbar navbar-default navbar-fixed-bottom" style="border: 0;">
     <div class="container">
+      {% if not current_user.is_authenticated %}
       <div class="row">
         <div class="col-xs-12 col-md-8">
-      <a href="{{ url_for_security('register') }}{% if 'next' in request.args %}?next={{ request.args.next|urlencode }}{% endif %}" class="navbar-btn btn-danger btn center-block">
-      Jadilah 100 Nezzers pertama!</a>
+          <a href="{{ url_for_security('register') }}{% if 'next' in request.args %}?next={{ request.args.next|urlencode }}{% endif %}" class="navbar-btn btn-success btn center-block">
+          Jadilah 100 Nezzers pertama!</a>
         </div>
       </div>
+      {% else %}
+      <div class="row">
+        <div class="col-xs-12 col-md-8">
+
+
+          <div class="input-group">
+            <span class="glyphicon glyphicon-heart-empty input-group-addon"></span>
+            <textarea class="form-control custom-control" rows="1" style="resize:none" placeholder="{{ current_user.email }} .."></textarea>
+            <span class="glyphicon glyphicon-comment input-group-addon"></span>
+          </div>
+        </div>
+      </div>
+      {% endif %}
     </div>
   </div>
-    {% endif %}
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
