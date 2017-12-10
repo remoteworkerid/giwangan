@@ -15,7 +15,7 @@ def get_og(page):
         # TODO: dump this to celery for updating
         if not current_user.has_role('admin'):
             page.view_count += 1
-            db.session.query(Page).filter_by(id=page.id).update({"pageviews": page.view_count})
+            db.session.query(Page).filter_by(id=page.id).update({"view_count": page.view_count})
             db.session.commit()
 
         og['url'] = '{}/{}'.format('http://nezzmedia.com', page.url)
