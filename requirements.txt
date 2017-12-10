@@ -11,3 +11,5 @@ flask-mail
 pillow
 humanize
 beautifulsoup4
+flask-restful
+requests

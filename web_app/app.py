@@ -18,6 +18,8 @@ from views import PageModelView, MenuModelView, UserModelView, RoleModelView, Se
     SiteConfigurationView, ImageView
 
 from utils.humanize import number
+from api.core import ToggleLovesAPI
+from flask_restful import Api
 
 
 
@@ -40,6 +42,9 @@ def create_app():
 
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security = Security(app, user_datastore)
+
+    api = Api(app)
+    api.add_resource(ToggleLovesAPI, '/api/loves')
 
     @app.before_first_request
     def init_vars():
@@ -94,8 +99,9 @@ def create_app():
             views_= importlib.import_module('web_app.apps.{}.views'.format(page.subtype))
             content = views_.process(page)
             og = views_.get_og(page)
+            loved = views_.get_love(page)
             return render_template('index.html', global_vars=global_vars, content=content,
-                                   menus=menus, og=og, page=page)
+                                   menus=menus, og=og, page=page, loved=loved)
 
     @app.route('/register', methods=['GET', 'POST'])
     @anonymous_user_required
@@ -110,5 +116,9 @@ def create_app():
     @app.template_filter('friendly_number')
     def friendly_number(n):
         return number.intword(n)
+
+    @app.route('/api/loves')
+    def loves():
+        pass
 
     return app

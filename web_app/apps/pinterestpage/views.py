@@ -27,3 +27,6 @@ def process(page):
 
 def get_og(page):
     return None
+
+def get_love(page):
+    return False

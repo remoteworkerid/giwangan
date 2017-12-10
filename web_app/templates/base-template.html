@@ -212,7 +212,13 @@
         <div class="col-xs-12 col-md-8">
           <div class="input-group">
             <textarea class="form-control custom-control" rows="1" style="resize:none" placeholder="{{ current_user.email }} Hold on, not yet. "></textarea>
-            <span id="button-of-love" class="glyphicon input-group-addon glyphicon-heart-empty"></span>
+              {% if loved is defined %}
+                {% if loved %}
+                <span id="button-of-love" class="glyphicon input-group-addon glyphicon-heart"></span>
+                {% else %}
+                <span id="button-of-love" class="glyphicon input-group-addon glyphicon-heart-empty"></span>
+                {% endif %}
+              {% endif %}
             <span id="button-of-speak" class="glyphicon glyphicon-plus input-group-addon" style="color:white; background:blue"></span>
           </div>
         </div>
@@ -245,8 +251,28 @@ single_column_breakpoint: 700
 
 <script>
   $('#button-of-love').on('click', function (e) {
-    console.log(page['id']);
-    $(this).removeClass('glyphicon-heart-empty');
-    $(this).addClass('glyphicon-heart');
+    $.ajax({
+         type: "PUT",
+         url: "/api/loves",
+         data: {'page_id': {{ page.id }}, 'user_id': {{ current_user.id }}},
+         dataType: "json",
+         success: function (data, status, jqXHR) {
+                data = JSON.parse(data);
+             if(data.loved){
+                console.log('to loved');
+                $('#button-of-love').removeClass('glyphicon-heart-empty');
+                $('#button-of-love').addClass('glyphicon-heart');
+             }else{
+                console.log('to unloved');
+                $('#button-of-love').removeClass('glyphicon-heart');
+                $('#button-of-love').addClass('glyphicon-heart-empty');
+             }
+         },
+
+         error: function (jqXHR, status) {
+             console.log(jqXHR);
+
+         }
+     });
   });
 </script>

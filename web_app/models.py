@@ -29,6 +29,10 @@ class PageState(db.Model):
     def __repr__(self):
         return self.title
 
+loves_page = db.Table('loves_page',
+                      db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
+                      db.Column('page_id', db.Integer(), db.ForeignKey('page.id')))
+
 
 class Page(db.Model):
     __tablename__ = 'page'
@@ -164,6 +168,9 @@ class User(db.Model, UserMixin):
     active = db.Column(db.Boolean())
     confirmed_at = db.Column(db.DateTime())
     roles = db.relationship('Role', secondary=roles_users,
+                            backref=db.backref('users', lazy='dynamic'))
+
+    loves = db.relationship('Page', secondary=loves_page,
                             backref=db.backref('users', lazy='dynamic'))
 
     def __repr__(self):
