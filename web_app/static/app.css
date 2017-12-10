@@ -3,12 +3,13 @@ h1,h2,h3,h4 {
 }
 p {
     font-family: 'Overlock', cursive;
-    font-size: 120%;
+    font-size: 140%;
     text-align: justify;
 }
 
 ol li {
     font-family: 'Overlock', cursive;
+    font-size: 140%;
     text-align: justify;
 }
 
