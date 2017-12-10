@@ -211,9 +211,9 @@
       <div class="row">
         <div class="col-xs-12 col-md-8">
           <div class="input-group">
-            <span id="button-of-love" class="glyphicon glyphicon-heart-empty input-group-addon"></span>
             <textarea class="form-control custom-control" rows="1" style="resize:none" placeholder="{{ current_user.email }} Hold on, not yet. "></textarea>
-            <span id="button-of-speak" class="glyphicon glyphicon-comment input-group-addon"></span>
+            <span id="button-of-love" class="glyphicon input-group-addon glyphicon-heart-empty"></span>
+            <span id="button-of-speak" class="glyphicon glyphicon-plus input-group-addon" style="color:white; background:blue"></span>
           </div>
         </div>
       </div>
@@ -245,8 +245,8 @@ single_column_breakpoint: 700
 
 <script>
   $('#button-of-love').on('click', function (e) {
-
-     console.log('love!');
-
-})
+    console.log(page['id']);
+    $(this).removeClass('glyphicon-heart-empty');
+    $(this).addClass('glyphicon-heart');
+  });
 </script>
