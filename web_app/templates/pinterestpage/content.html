@@ -43,7 +43,8 @@ stylize any heading tags withing white-panel below
           <p>
           <a href="/{{ p.category }}"><span class="label label-success pull-left">{{ p.category }}</span></a>
           <!--<p>{{ p.stamp|friendly_time }}</p>-->
-          <span class="glyphicon glyphicon-eye-open pull-right" >{{ p.pageviews |friendly_number }} </span></a>
+          <span class="glyphicon glyphicon-heart pull-right" >{{ p.love_count |friendly_number }} </span></a>
+          <span class="glyphicon glyphicon-eye-open pull-right" >{{ p.view_count |friendly_number }} </span></a>
           </p>
       </article>
         {% if loop.index == 1 and not global_vars.ADSENSE_INFEED_CODE is none %}
