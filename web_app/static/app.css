@@ -1,12 +1,16 @@
 h1,h2,h3,h4 {
     font-family: 'Lobster', cursive;
 }
-/*p {
+p {
     font-family: 'Overlock', cursive;
-    font-size: 14;
-}*/
+    font-size: 120%;
+    text-align: justify;
+}
 
-ol li { font-family: 'Overlock', cursive; }
+ol li {
+    font-family: 'Overlock', cursive;
+    text-align: justify;
+}
 
 body {
     padding-bottom: 60px;
