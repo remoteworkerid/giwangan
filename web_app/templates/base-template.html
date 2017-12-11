@@ -125,50 +125,7 @@
           <li><a href="/logout">Logout</a></li>
         </ul>
       </li>
-        {% else %}
-        <li><p class="navbar-text">Already have an account?</p></li>
-        <li><a href="/login">Login</a></li>
 
-        <!--Login in dropdown-->
-        <!--<li class="dropdown">-->
-          <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>-->
-			<!--<ul id="login-dp" class="dropdown-menu">-->
-				<!--<li>-->
-					 <!--<div class="row">-->
-							<!--<div class="col-md-12">-->
-								<!--Login via-->
-								<!--<div class="social-buttons">-->
-									<!--<a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>-->
-									<!--<a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>-->
-								<!--</div>-->
-                                <!--or-->
-								 <!--<form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">-->
-										<!--<div class="form-group">-->
-											 <!--<label class="sr-only" for="exampleInputEmail2">Email address</label>-->
-											 <!--<input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>-->
-										<!--</div>-->
-										<!--<div class="form-group">-->
-											 <!--<label class="sr-only" for="exampleInputPassword2">Password</label>-->
-											 <!--<input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>-->
-                                             <!--<div class="help-block text-right"><a href="">Forget the password ?</a></div>-->
-										<!--</div>-->
-										<!--<div class="form-group">-->
-											 <!--<button type="submit" class="btn btn-primary btn-block">Sign in</button>-->
-										<!--</div>-->
-										<!--<div class="checkbox">-->
-											 <!--<label>-->
-											 <!--<input type="checkbox"> keep me logged-in-->
-											 <!--</label>-->
-										<!--</div>-->
-								 <!--</form>-->
-							<!--</div>-->
-							<!--<div class="bottom text-center">-->
-								<!--New here ? <a href="#"><b>Join Us</b></a>-->
-							<!--</div>-->
-					 <!--</div>-->
-				<!--</li>-->
-			<!--</ul>-->
-        <!--</li>-->
         {% endif %}
 
       </ul>
@@ -215,10 +172,10 @@
             <!--</div>-->
 
                <div class="input-group">
-        <input placeholder="BETA Login dengan nomor hape-mu" id="fb_phone_number" class="form-control"/>
+        <input placeholder="Login dengan email/HP disini" id="login_phone_or_email" class="form-control"/>
         <span class="input-group-btn">
-            <button class="btn btn-default value-control" id="btn_fb_phone_number">
-            <span class="glyphicon glyphicon-ok-sign"></span>
+            <button class="btn btn-default value-control" id="btn_login_phone_or_email">
+            <span class="glyphicon glyphicon-log-in"></span>
         </button>
         </span>
     </div>
@@ -366,6 +323,12 @@ single_column_breakpoint: 700
     {% else %}
 
     <script>
+
+        function validate_email(email) {
+          var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return re.test(email);
+        }
+
         AccountKit_OnInteractive = function(){
             AccountKit.init(
               {
@@ -377,31 +340,38 @@ single_column_breakpoint: 700
               });
         };
 
-        $("#fb_phone_number").keyup(function(event) {
+        $("#login_phone_or_email").keyup(function(event) {
             if (event.keyCode === 13) {
-                $("#btn_fb_phone_number").click();
+                $("#btn_login_phone_or_email").click();
             }
         });
-        $('#btn_fb_phone_number').on('click', function (e) {
-            var phone_number = $('#fb_phone_number').val();
-            console.log(phone_number);
-            if(phone_number != '')
+
+        $('#btn_login_phone_or_email').on('click', function (e) {
+            var phone_or_email = $('#login_phone_or_email').val();
+            console.log(phone_or_email);
+            if(phone_or_email != '')
             {
-                var country_code = '';
+                login_type = 'PHONE';
+                if(validate_email(phone_or_email)){
+                    login_type = 'EMAIL';
+                    payload = {emailAddress: phone_or_email}
+                }else {
+                    login_type = 'PHONE';
+                    var country_code = '';
 
-                if(!phone_number.startsWith('+')){
-                    country_code = '+62';
-
-                } else {
-                    country_code = phone_number.substr(0, 3);
-                    phone_number = phone_number.substr(3, phone_number.length);
+                    if(!phone_or_email.startsWith('+')){
+                        country_code = '+62';
+                    } else {
+                        country_code = phone_or_email.substr(0, 3); // TODO: problem with country code not 3 in length
+                        phone_or_email = phone_or_email.substr(3, phone_or_email.length);
+                    }
+                    payload = {countryCode: country_code, phoneNumber: phone_or_email};
+                    console.log(country_code + '-' + phone_or_email);
                 }
-                console.log(country_code + '-' + phone_number);
 
-                $('#fb_phone_number').val('');
                 AccountKit.login(
-                    'PHONE',
-                    {countryCode: country_code, phoneNumber: phone_number},
+                    login_type,
+                    payload,
                     loginCallback
                 );
             }
