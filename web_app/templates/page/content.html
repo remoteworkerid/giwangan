@@ -18,11 +18,15 @@
 </p>
             <hr/>
             <h4>Komentar</h4>
+            {% if page.comments|length == 0 %}
+            <p>Kesempatan pertamax gan! <span class="fa fa-smile"></span></p>
             <p id="list-comment">
+                {% else %}
             {% for c in page.comments|reverse %}
             <p><a href="#">{{ c.user.email|safe_email }}</a> {{ c.comment }}</p>
             {% endfor %}
             </p>
             <p id="new-comment"></p>
+            {% endif %}
         </div>
     </div>
