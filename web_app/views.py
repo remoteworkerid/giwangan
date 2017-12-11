@@ -63,8 +63,8 @@ class MenuModelView(AdminOnlyModelView):
 
 
 class UserModelView(AdminOnlyModelView):
-    column_list = ('email', 'active', 'roles')
-    form_columns = ('email', 'active', 'roles')
+    column_list = ('email', 'phone', 'active', 'roles')
+    form_columns = ('email', 'phone', 'active', 'roles')
 
 
 class RoleModelView(AdminOnlyModelView):
