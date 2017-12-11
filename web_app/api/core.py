@@ -68,7 +68,7 @@ class AccountKitAPI(Resource):
         secret = '46668cf70438c9644bff716cea9db3e9'
         token_exchange_url = 'https://graph.accountkit.com/v1.1/access_token?' \
                              'grant_type=authorization_code&' \
-                             'code={}&access_token=AA|{}|$secret'.format(code, appid, secret)
+                             'code={}&access_token=AA|{}|{}'.format(code, appid, secret)
 
         response = requests.get(token_exchange_url)
         if response.status_code == 200:
