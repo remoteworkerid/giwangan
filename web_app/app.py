@@ -1,8 +1,8 @@
 import os
 import sys
 
-import requests
 from flask_admin.contrib.sqla import ModelView
+from flask_wtf import CsrfProtect
 
 sys.path.append(os.getcwd() + "/web_app/")
 
@@ -42,6 +42,7 @@ def create_app():
 
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security = Security(app, user_datastore)
+    csrf = CsrfProtect(app)
 
     api = Api(app)
     api.add_resource(ToggleLovesAPI, '/api/loves')
