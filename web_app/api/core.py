@@ -93,7 +93,7 @@ class AccountKitAPI(Resource):
                 if user is None:
                     user = User(phone=phone, email='', password='')
                     db.session.add(user)
-                    db.commit()
+                    db.session.commit()
 
                 login_user(user)
 
