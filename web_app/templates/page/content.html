@@ -16,5 +16,13 @@
 <p class="text-justify">
     {{ page.content| safe }}
 </p>
+            <hr/>
+            <h4>Komentar</h4>
+            <p id="list-comment">
+            {% for c in page.comments|reverse %}
+            <p><a href="#">{{ c.user.email|safe_email }}</a> {{ c.comment }}</p>
+            {% endfor %}
+            </p>
+            <p id="new-comment"></p>
         </div>
     </div>

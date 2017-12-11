@@ -18,7 +18,7 @@ from views import PageModelView, MenuModelView, UserModelView, RoleModelView, Se
     SiteConfigurationView, ImageView
 
 from utils.humanize import number
-from api.core import ToggleLovesAPI
+from api.core import ToggleLovesAPI, CommentAPI
 from flask_restful import Api
 
 
@@ -45,6 +45,7 @@ def create_app():
 
     api = Api(app)
     api.add_resource(ToggleLovesAPI, '/api/loves')
+    api.add_resource(CommentAPI, '/api/comments')
 
     @app.before_first_request
     def init_vars():
@@ -117,8 +118,9 @@ def create_app():
     def friendly_number(n):
         return number.intword(n)
 
-    @app.route('/api/loves')
-    def loves():
-        pass
+    @app.template_filter('safe_email')
+    def safe_email(s):
+        return s[:s.index('@')]
+
 
     return app

@@ -1,3 +1,4 @@
+import datetime
 from flask_security import RoleMixin, UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import form
@@ -72,6 +73,18 @@ def page_before_insert_update_listener(mapper, connection, target):
 
 event.listen(Page, 'before_insert', page_before_insert_update_listener)
 event.listen(Page, 'before_update', page_before_insert_update_listener)
+
+
+class Comment(db.Model):
+    __tablename__ = 'comment'
+
+    id = Column(Integer, primary_key=True)
+    comment = Column(String, nullable=False)
+    stamp = Column(DateTime, default=datetime.datetime.utcnow)
+    user_id = Column(Integer, ForeignKey('user.id', name='fk_comment_user'))
+    page_id = Column(Integer, ForeignKey('page.id', name='fk_comment_page'))
+    page = relationship("Page", backref=backref("comments"))
+    user = relationship("User", backref=backref("comments"))
 
 
 class Menu(db.Model):
@@ -172,6 +185,7 @@ class User(db.Model, UserMixin):
 
     loves = db.relationship('Page', secondary=loves_page,
                             backref=db.backref('users', lazy='dynamic'))
+
 
     def __repr__(self):
         return self.email

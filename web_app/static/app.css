@@ -1,7 +1,7 @@
 h1,h2,h3,h4 {
     font-family: 'Lobster', cursive;
 }
-p {
+p .new-comment {
     font-family: 'Overlock', cursive;
     font-size: 140%;
     text-align: justify;

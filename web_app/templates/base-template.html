@@ -211,7 +211,7 @@
       <div class="row">
         <div class="col-xs-12 col-md-8">
           <div class="input-group">
-            <textarea class="form-control custom-control" rows="1" style="resize:none" placeholder="{{ current_user.email }} Hold on, not yet. "></textarea>
+            <input id="comment-box" class="form-control custom-control" rows="1" style="resize:none" placeholder="Tekan enter disini untuk berkomentar"></input>
               {% if loved is defined %}
                 {% if loved %}
                 <span id="button-of-love" class="glyphicon input-group-addon glyphicon-heart"></span>
@@ -219,7 +219,7 @@
                 <span id="button-of-love" class="glyphicon input-group-addon glyphicon-heart-empty"></span>
                 {% endif %}
               {% endif %}
-            <span id="button-of-speak" class="glyphicon glyphicon-plus input-group-addon" style="color:white; background:blue"></span>
+            <!--<span id="button-of-speak" class="glyphicon glyphicon-plus input-group-addon" style="color:white; background:blue"></span>-->
           </div>
         </div>
       </div>
@@ -274,5 +274,49 @@ single_column_breakpoint: 700
 
          }
      });
+  });
+</script>
+<script>
+  $('#comment-box').keypress(function (e) {
+    comment = $('#comment-box').val();
+    if(comment != ''){
+      if (e.which == 13) {
+
+        // start commenting
+        $("#comment-box").prop('disabled', true);
+        $.ajax({
+             type: "PUT",
+             url: "/api/comments",
+             data: {'page_id': {{ page.id }},
+                    'user_id': {{ current_user.id }},
+                    'comment': comment },
+             dataType: "json",
+             success: function (data, status, jqXHR) {
+                    data = JSON.parse(data);
+                 if(data.success){
+                    $("#comment-box").val('');
+                    $("#comment-box").prop('disabled', false);
+                    id_newcomment = "new-comment-" + data.id;
+                    new_comment = '<p id="' + id_newcomment + '"><a href="#">data.email</a> ' + data.comment + '</p>';
+                    $("#new-comment").append(new_comment);
+                    $('body, html').animate({ scrollTop: $("#" + id_newcomment).offset().top }, 1000);
+
+                 }else{
+                    // enabled, allow retry
+                    $("#comment-box").prop('disabled', false);
+                 }
+             },
+
+             error: function (jqXHR, status) {
+                 console.log(jqXHR);
+                 //retry
+             }
+         });
+        // catch result
+
+
+        return false;
+      }
+    }
   });
 </script>
