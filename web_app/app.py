@@ -42,19 +42,19 @@ def create_app():
 
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security = Security(app, user_datastore)
-    csrf = CsrfProtect(app)
+    # csrf = CsrfProtect(app)
 
     api = Api(app)
     api.add_resource(ToggleLovesAPI, '/api/loves')
     api.add_resource(CommentAPI, '/api/comments')
     api.add_resource(AccountKitAPI, '/api/accountkit')
 
-    @app.before_request
-    def csrf_protect():
-        if request.method == "POST":
-            token = session.pop('_csrf_token', None)
-            if not token or token != request.form.get('_csrf_token'):
-                abort(403)
+    # @app.before_request
+    # def csrf_protect():
+    #     if request.method == "POST":
+    #         token = session.pop('_csrf_token', None)
+    #         if not token or token != request.form.get('_csrf_token'):
+    #             abort(403)
 
     def generate_csrf_token():
         if '_csrf_token' not in session:

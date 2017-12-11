@@ -1,4 +1,4 @@
-from flask import url_for, request
+from flask import url_for, request, session
 from flask_admin import BaseView, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 from flask_login import current_user
@@ -40,9 +40,19 @@ class SecuredHomeView(AdminIndexView):
         return redirect(url_for('security.login', next=request.full_path))
 
 
+class MySecureForm(SecureForm):
+    def generate_csrf_token(self, csrf_context):
+        if '_csrf_token' not in session:
+            import os, binascii
+            session['_csrf_token'] = binascii.b2a_hex(os.urandom(15))
+        return session['_csrf_token']
+
+
 class AdminOnlyModelView(ModelView):
-    form_base_class = SecureForm
+    # form_base_class = MySecureForm
     for_admin_only = True
+
+
 
     def is_accessible(self):
         return current_user.has_role('admin')
