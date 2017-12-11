@@ -84,10 +84,10 @@ class AccountKitAPI(Resource):
             response = requests.get(me_endpoint_url)
             if response.status_code == 200:
                 data = json.loads(response.text)
-                print(data)
+                # {'id': '165171020758465', 'application': {'id': '303680430123651'}, 'phone': {'number': '+628122221975', 'national_number': '8122221975', 'country_prefix': '62'}}
                 phone = data['phone']['number'] if data['phone'] else ''
-                email = data['email']['address'] if data['email'] else ''
-                return json.dumps({'success': True, 'phone': phone, 'email': email}), 200, {'ContentType': 'application/json'}
+                # email = data['email']['address'] if data['email'] else ''
+                return json.dumps({'success': True, 'phone': phone}), 200, {'ContentType': 'application/json'}
 
         return json.dumps({'success': False}), 200, {'ContentType': 'application/json'}
 
