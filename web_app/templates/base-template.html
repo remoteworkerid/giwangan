@@ -351,10 +351,11 @@ single_column_breakpoint: 700
             console.log(phone_or_email);
             if(phone_or_email != '')
             {
-                login_type = 'PHONE';
+                login_type = '';
                 if(validate_email(phone_or_email)){
                     login_type = 'EMAIL';
                     payload = {emailAddress: phone_or_email}
+                    console.log(payload);
                 }else {
                     login_type = 'PHONE';
                     var country_code = '';
@@ -366,7 +367,7 @@ single_column_breakpoint: 700
                         phone_or_email = phone_or_email.substr(3, phone_or_email.length);
                     }
                     payload = {countryCode: country_code, phoneNumber: phone_or_email};
-                    console.log(country_code + '-' + phone_or_email);
+                    console.log(payload);
                 }
 
                 AccountKit.login(
