@@ -70,18 +70,24 @@ class AccountKitAPI(Resource):
                              'grant_type=authorization_code&' \
                              'code={}&access_token=AA|{}|$secret'.format(code, appid, secret)
 
-        data = requests.get(token_exchange_url)
-        user_id = data['id']
-        user_access_token = data['access_token']
-        refresh_interval = data['token_refresh_interval_sec']
-        print(user_id, user_access_token, refresh_interval)
+        response = requests.get(token_exchange_url)
+        if response.status_code == 200:
+            data = json.loads(response.text)
+            user_id = data['id']
+            user_access_token = data['access_token']
+            refresh_interval = data['token_refresh_interval_sec']
+            print(user_id, user_access_token, refresh_interval)
 
 
-        me_endpoint_url = 'https://graph.accountkit.com/v1.1/me?access_token={}'.format(user_access_token)
+            me_endpoint_url = 'https://graph.accountkit.com/v1.1/me?access_token={}'.format(user_access_token)
 
-        data = requests.get(me_endpoint_url)
-        print(dir(data))
+            response = requests.get(me_endpoint_url)
+            if response.status_code == 200:
+                data = json.loads(response.text)
 
-        phone = data['phone']['number'] if data['phone'] else ''
-        email = data['email']['address'] if data['email'] else ''
-        return {'success': True, 'phone': phone, 'email': email}
+                phone = data['phone']['number'] if data['phone'] else ''
+                email = data['email']['address'] if data['email'] else ''
+                return json.dumps({'success': True, 'phone': phone, 'email': email}), 200, {'ContentType': 'application/json'}
+
+        return json.dumps({'success': False}), 200, {'ContentType': 'application/json'}
+
