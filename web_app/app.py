@@ -1,6 +1,7 @@
 import os
 import sys
 
+import requests
 from flask_admin.contrib.sqla import ModelView
 
 sys.path.append(os.getcwd() + "/web_app/")
@@ -136,9 +137,31 @@ def create_app():
     def safe_email(s):
         return s[:s.index('@')]
 
-    @app.route('/profile')
-    def profile():
-        return 'Profilemu'
+    @app.route('/accountkit_success', methods=['POST'])
+    def accountkit_success():
+        print('fb success')
+        code = request.form.getlist('code')[0]
+        appid = '303680430123651'
+        secret = '46668cf70438c9644bff716cea9db3e9'
+        token_exchange_url = 'https://graph.accountkit.com/v1.1/access_token?' \
+                             'grant_type=authorization_code&' \
+                             'code={}&access_token=AA|{}|$secret'.format(code, appid, secret)
+
+        data = requests.get(token_exchange_url)
+        user_id = data['id']
+        user_access_token = data['access_token']
+        refresh_interval = data['token_refresh_interval_sec']
+        print(user_id, user_access_token, refresh_interval)
+
+
+        me_endpoint_url = 'https://graph.accountkit.com/v1.1/me?access_token={}'.format(user_access_token)
+
+        data = requests.get(me_endpoint_url)
+        print(dir(data))
+
+        phone = data['phone']['number'] if data['phone'] else ''
+        email = data['email']['address'] if data['email'] else ''
+        return {'success': True}
 
 
     return app
