@@ -5,6 +5,7 @@ from flask_login import current_user
 from markupsafe import Markup
 from werkzeug.utils import redirect
 from wtforms import TextAreaField
+from wtforms.ext.csrf import SecureForm
 from wtforms.widgets import TextArea
 from flask_admin import form
 
@@ -40,6 +41,7 @@ class SecuredHomeView(AdminIndexView):
 
 
 class AdminOnlyModelView(ModelView):
+    form_base_class = SecureForm
     for_admin_only = True
 
     def is_accessible(self):
