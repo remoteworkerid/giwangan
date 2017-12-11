@@ -203,8 +203,18 @@
       {% if not current_user.is_authenticated %}
       <div class="row">
         <div class="col-xs-12 col-md-8">
-          <a href="{{ url_for_security('register') }}{% if 'next' in request.args %}?next={{ request.args.next|urlencode }}{% endif %}" class="navbar-btn btn-success btn center-block">
-          Jadilah 100 Nezzers pertama!</a>
+          <!--<a href="{{ url_for_security('register') }}{% if 'next' in request.args %}?next={{ request.args.next|urlencode }}{% endif %}" class="navbar-btn btn-success btn center-block">-->
+          <!--Jadilah 100 Nezzers pertama!</a>-->
+            <form>
+  <div class="form-group">
+            <input value="+1" id="country_code" />
+            <input placeholder="phone number" id="phone_number"/>
+            <button onclick="smsLogin();">Login via SMS</button>
+            <div>OR</div>
+            <input placeholder="email" id="email"/>
+            <button onclick="emailLogin();">Login via Email</button>
+  </div>
+            </form>
         </div>
       </div>
       {% else %}
@@ -246,6 +256,7 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
     <script src="/static/pinterestpage/js/grid.js"></script>
+    <script src="https://sdk.accountkit.com/en_US/sdk.js"></script>
   <script>
 $(document).ready(function() {
 $('#pinBoot').pinterest_grid({
@@ -259,6 +270,7 @@ single_column_breakpoint: 700
 </script>
     </div><!--container fluid -->
 
+    {% if current_user.is_authenticated %}
 <script>
   $('#button-of-love').on('click', function (e) {
     $.ajax({
@@ -330,3 +342,64 @@ single_column_breakpoint: 700
     }
   });
 </script>
+    {% else %}
+    <script>
+  // initialize Account Kit with CSRF protection
+  AccountKit_OnInteractive = function(){
+    AccountKit.init(
+      {
+        appId:"303680430123651",
+        state:"{{generate_csrf_token() }}",
+        version:"v1.1",
+        fbAppEventsEnabled:true,
+        redirect:"/profile"
+      }
+    );
+  };
+
+  // login callback
+  function loginCallback(response) {
+  console.log('callback?');
+    if (response.status === "PARTIALLY_AUTHENTICATED") {
+      var code = response.code;
+      var csrf = response.state;
+      // Send code to server to exchange for access token
+      console.log('PARTIALLY_AUTHENTICATED');
+    }
+    else if (response.status === "NOT_AUTHENTICATED") {
+      // handle authentication failure
+    console.log('NOT_AUTHENTICATED');
+
+    }
+    else if (response.status === "BAD_PARAMS") {
+      // handle bad parameters
+      console.log('BAD_PARAMS');
+    }
+  }
+
+  // phone form submission handler
+  function smsLogin() {
+    var countryCode = document.getElementById("country_code").value;
+    var phoneNumber = document.getElementById("phone_number").value;
+    AccountKit.login(
+      'PHONE',
+      {countryCode: countryCode, phoneNumber: phoneNumber}, // will use default values if not specified
+      loginCallback
+    );
+  }
+
+
+  // email form submission handler
+  function emailLogin() {
+  console.log('here?');
+    var emailAddress = document.getElementById("email").value;
+    AccountKit.login(
+      'EMAIL',
+      {emailAddress: emailAddress},
+      loginCallback
+    );
+  }
+</script>
+
+
+  {% endif %}

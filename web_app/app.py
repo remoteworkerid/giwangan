@@ -7,7 +7,7 @@ sys.path.append(os.getcwd() + "/web_app/")
 
 import humanize
 import flask_security
-from flask import Flask, render_template
+from flask import Flask, render_template, request, session
 from flask_admin import Admin
 from flask_security import SQLAlchemyUserDatastore, Security
 from flask_security.decorators import anonymous_user_required
@@ -19,8 +19,7 @@ from views import PageModelView, MenuModelView, UserModelView, RoleModelView, Se
 
 from utils.humanize import number
 from api.core import ToggleLovesAPI, CommentAPI
-from flask_restful import Api
-
+from flask_restful import Api, abort
 
 
 def create_app():
@@ -46,6 +45,21 @@ def create_app():
     api = Api(app)
     api.add_resource(ToggleLovesAPI, '/api/loves')
     api.add_resource(CommentAPI, '/api/comments')
+
+    @app.before_request
+    def csrf_protect():
+        if request.method == "POST":
+            token = session.pop('_csrf_token', None)
+            if not token or token != request.form.get('_csrf_token'):
+                abort(403)
+
+    def generate_csrf_token():
+        if '_csrf_token' not in session:
+            import os, binascii
+            session['_csrf_token'] = binascii.b2a_hex(os.urandom(15))
+        return session['_csrf_token']
+
+    app.jinja_env.globals.update(generate_csrf_token=generate_csrf_token)
 
     @app.before_first_request
     def init_vars():
@@ -121,6 +135,10 @@ def create_app():
     @app.template_filter('safe_email')
     def safe_email(s):
         return s[:s.index('@')]
+
+    @app.route('/profile')
+    def profile():
+        return 'Profilemu'
 
 
     return app
