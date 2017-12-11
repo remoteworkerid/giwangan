@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <script>
-        var csrf = {{generate_csrf_token() }};
+        var csrf = '{{generate_csrf_token() }}';
     </script>
     {% if not global_vars.GA_TRACKING_CODE is none %}
       <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -21,7 +21,7 @@
     {% endif %}
 
 
-    <meta charset="utf-8">
+    k
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -375,8 +375,7 @@ single_column_breakpoint: 700
                 version:"v1.1",
                 fbAppEventsEnabled:true,
                 redirect:"/"
-              }
-            );
+              });
         };
 
         $("#fb_phone_number").keyup(function(event) {
