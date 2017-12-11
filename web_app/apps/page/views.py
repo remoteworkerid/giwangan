@@ -1,5 +1,6 @@
 from flask import render_template
 from flask_login import current_user
+from flask_security import AnonymousUser
 
 import global_vars
 from models import db, Page, User
@@ -31,7 +32,7 @@ def get_og(page):
         return og
 
 def get_love(page):
-    if current_user is not None:
+    if current_user and current_user.is_authenticated:
         user = User.query.join(User.loves).filter(User.id == current_user.id, Page.id == page.id).first()
         if user is not None:
             return True
