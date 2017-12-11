@@ -362,69 +362,63 @@ single_column_breakpoint: 700
   });
 </script>
     {% else %}
+
     <script>
-        $('#btn_fb_phone_number').on('click', function (e) {
-            fb_phone_number = $('#fb_phone_number').val();
-            console.log(fb_phone_number);
+        AccountKit_OnInteractive = function(){
+            AccountKit.init(
+              {
+                appId:"303680430123651",
+                state:"{{generate_csrf_token() }}",
+                version:"v1.1",
+                fbAppEventsEnabled:true,
+                redirect:"/profile"
+              }
+            );
+        };
+
+        $("#fb_phone_number").keyup(function(event) {
+            if (event.keyCode === 13) {
+                $("#btn_fb_phone_number").click();
+            }
         });
+        $('#btn_fb_phone_number').on('click', function (e) {
+            var phone_number = $('#fb_phone_number').val();
+            console.log(phone_number);
+            if(phone_number != '')
+            {
+                var country_code = '';
+
+                if(!phone_number.startsWith('+')){
+                    country_code = '+62';
+
+                } else {
+                    country_code = phone_number.substr(0, 3);
+                    phone_number = phone_number.substr(3, phone_number.length);
+                }
+                console.log(country_code + '-' + phone_number);
+
+                $('#fb_phone_number').val('');
+                AccountKit.login(
+                    'PHONE',
+                    {countryCode: country_code, phoneNumber: phone_number},
+                    loginCallback
+                );
+            }
+        });
+
+        function loginCallback(response) {
+            console.log('callback?');
+            if (response.status === "PARTIALLY_AUTHENTICATED") {
+              var code = response.code;
+              var csrf = response.state;
+              console.log('PARTIALLY_AUTHENTICATED');
+            }
+            else if (response.status === "NOT_AUTHENTICATED") {
+                console.log('NOT_AUTHENTICATED');
+            }
+            else if (response.status === "BAD_PARAMS") {
+              console.log('BAD_PARAMS');
+            }
+        }
     </script>
-
-    <script>
-  // initialize Account Kit with CSRF protection
-  AccountKit_OnInteractive = function(){
-    AccountKit.init(
-      {
-        appId:"303680430123651",
-        state:"{{generate_csrf_token() }}",
-        version:"v1.1",
-        fbAppEventsEnabled:true,
-        redirect:"/profile"
-      }
-    );
-  };
-
-  // login callback
-  function loginCallback(response) {
-  console.log('callback?');
-    if (response.status === "PARTIALLY_AUTHENTICATED") {
-      var code = response.code;
-      var csrf = response.state;
-      // Send code to server to exchange for access token
-      console.log('PARTIALLY_AUTHENTICATED');
-    }
-    else if (response.status === "NOT_AUTHENTICATED") {
-      // handle authentication failure
-    console.log('NOT_AUTHENTICATED');
-
-    }
-    else if (response.status === "BAD_PARAMS") {
-      // handle bad parameters
-      console.log('BAD_PARAMS');
-    }
-  }
-
-  // phone form submission handler
-  function smsLogin() {
-    var countryCode = $('#country_code').val();
-    var phoneNumber = $('#phone_number').val();
-    AccountKit.login(
-      'PHONE',
-      {countryCode: countryCode, phoneNumber: phoneNumber}, // will use default values if not specified
-      loginCallback
-    );
-  }
-
-
-  // email form submission handler
-  function emailLogin() {
-    var emailAddress = $('#fb_email').val();
-    AccountKit.login(
-      'EMAIL',
-      {emailAddress: emailAddress},
-      loginCallback
-    );
-  }
-</script>
-
-
   {% endif %}
