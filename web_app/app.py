@@ -137,9 +137,11 @@ def create_app():
     def safe_email(s):
         return s[:s.index('@')]
 
-    @app.route('/accountkit_success', methods=['POST'])
+    @app.route('/accountkit_success', methods=['GET', 'POST'])
     def accountkit_success():
         print('fb success')
+        code = request.values.get('code')
+        print(code)
         code = request.form.getlist('code')[0]
         appid = '303680430123651'
         secret = '46668cf70438c9644bff716cea9db3e9'
