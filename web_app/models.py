@@ -180,12 +180,12 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(255))
     active = db.Column(db.Boolean())
     confirmed_at = db.Column(db.DateTime())
+    phone = db.Column(db.String)
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
 
     loves = db.relationship('Page', secondary=loves_page,
                             backref=db.backref('users', lazy='dynamic'))
-
 
     def __repr__(self):
         return self.email

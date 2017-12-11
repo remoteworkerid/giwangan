@@ -3,6 +3,8 @@ from flask import request, jsonify
 from flask_restful import Resource
 import json
 
+from flask_security import login_user
+
 from models import db, Page, User, Comment
 
 
@@ -84,9 +86,17 @@ class AccountKitAPI(Resource):
             response = requests.get(me_endpoint_url)
             if response.status_code == 200:
                 data = json.loads(response.text)
-                # {'id': '165171020758465', 'application': {'id': '303680430123651'}, 'phone': {'number': '+628122221975', 'national_number': '8122221975', 'country_prefix': '62'}}
+
                 phone = data['phone']['number'] if data['phone'] else ''
-                # email = data['email']['address'] if data['email'] else ''
+                #register
+                user = User.query.filter_by(phone=phone).first()
+                if user is None:
+                    user = User(phone=phone, email='', password='')
+                    db.session.add(user)
+                    db.commit()
+
+                login_user(user)
+
                 return json.dumps({'success': True, 'phone': phone}), 200, {'ContentType': 'application/json'}
 
         return json.dumps({'success': False}), 200, {'ContentType': 'application/json'}
