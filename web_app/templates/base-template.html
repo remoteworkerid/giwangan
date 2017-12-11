@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+        var csrf = {{generate_csrf_token() }};
+    </script>
     {% if not global_vars.GA_TRACKING_CODE is none %}
       <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-99596173-4"></script>
@@ -368,10 +371,10 @@ single_column_breakpoint: 700
             AccountKit.init(
               {
                 appId:"303680430123651",
-                state:"{{generate_csrf_token() }}",
+                state: csrf,
                 version:"v1.1",
                 fbAppEventsEnabled:true,
-                redirect:"/accountkit_success"
+                redirect:"/"
               }
             );
         };
@@ -409,9 +412,33 @@ single_column_breakpoint: 700
         function loginCallback(response) {
             console.log('callback?');
             if (response.status === "PARTIALLY_AUTHENTICATED") {
-              var code = response.code;
-              var csrf = response.state;
               console.log('PARTIALLY_AUTHENTICATED');
+              var code = response.code;
+              var _csrf = response.state;
+
+              if(_csrf === csrf){
+                  $.ajax({
+                     type: "PUT",
+                     url: "/api/accountkit",
+                     data: {'code': code},
+                     dataType: "json",
+                     success: function (data, status, jqXHR) {
+                        data = JSON.parse(data);
+                        if(data.success){
+                            window.location = '/';
+                         }else{
+                            console.log('Not success after partial');
+                         }
+                     },
+
+                     error: function (jqXHR, status) {
+                         console.log(jqXHR);
+                         //retry
+                     }
+                 });
+              }else{
+                alert('Not authenticated!');
+              }
             }
             else if (response.status === "NOT_AUTHENTICATED") {
                 console.log('NOT_AUTHENTICATED');

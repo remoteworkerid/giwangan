@@ -1,3 +1,4 @@
+import requests
 from flask import request, jsonify
 from flask_restful import Resource
 import json
@@ -57,3 +58,30 @@ class CommentAPI(Resource):
         else:
             return json.dumps({'success': False}), 200, {'ContentType': 'application/json'}
 
+
+class AccountKitAPI(Resource):
+
+    def put(self):
+        print('fb success')
+        code = request.form.getlist('code')[0]
+        appid = '303680430123651'
+        secret = '46668cf70438c9644bff716cea9db3e9'
+        token_exchange_url = 'https://graph.accountkit.com/v1.1/access_token?' \
+                             'grant_type=authorization_code&' \
+                             'code={}&access_token=AA|{}|$secret'.format(code, appid, secret)
+
+        data = requests.get(token_exchange_url)
+        user_id = data['id']
+        user_access_token = data['access_token']
+        refresh_interval = data['token_refresh_interval_sec']
+        print(user_id, user_access_token, refresh_interval)
+
+
+        me_endpoint_url = 'https://graph.accountkit.com/v1.1/me?access_token={}'.format(user_access_token)
+
+        data = requests.get(me_endpoint_url)
+        print(dir(data))
+
+        phone = data['phone']['number'] if data['phone'] else ''
+        email = data['email']['address'] if data['email'] else ''
+        return {'success': True, 'phone': phone, 'email': email}

@@ -19,7 +19,7 @@ from views import PageModelView, MenuModelView, UserModelView, RoleModelView, Se
     SiteConfigurationView, ImageView
 
 from utils.humanize import number
-from api.core import ToggleLovesAPI, CommentAPI
+from api.core import ToggleLovesAPI, CommentAPI, AccountKitAPI
 from flask_restful import Api, abort
 
 
@@ -46,6 +46,7 @@ def create_app():
     api = Api(app)
     api.add_resource(ToggleLovesAPI, '/api/loves')
     api.add_resource(CommentAPI, '/api/comments')
+    api.add_resource(AccountKitAPI, '/api/accountkit')
 
     @app.before_request
     def csrf_protect():
@@ -136,34 +137,5 @@ def create_app():
     @app.template_filter('safe_email')
     def safe_email(s):
         return s[:s.index('@')]
-
-    @app.route('/accountkit_success', methods=['GET', 'POST'])
-    def accountkit_success():
-        print('fb success')
-        code = request.values.get('code')
-        print(code)
-        code = request.form.getlist('code')[0]
-        appid = '303680430123651'
-        secret = '46668cf70438c9644bff716cea9db3e9'
-        token_exchange_url = 'https://graph.accountkit.com/v1.1/access_token?' \
-                             'grant_type=authorization_code&' \
-                             'code={}&access_token=AA|{}|$secret'.format(code, appid, secret)
-
-        data = requests.get(token_exchange_url)
-        user_id = data['id']
-        user_access_token = data['access_token']
-        refresh_interval = data['token_refresh_interval_sec']
-        print(user_id, user_access_token, refresh_interval)
-
-
-        me_endpoint_url = 'https://graph.accountkit.com/v1.1/me?access_token={}'.format(user_access_token)
-
-        data = requests.get(me_endpoint_url)
-        print(dir(data))
-
-        phone = data['phone']['number'] if data['phone'] else ''
-        email = data['email']['address'] if data['email'] else ''
-        return {'success': True}
-
 
     return app
