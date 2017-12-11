@@ -91,7 +91,7 @@ class AccountKitAPI(Resource):
                 #register
                 user = User.query.filter_by(phone=phone).first()
                 if user is None:
-                    user = User(phone=phone, email='', password='')
+                    user = User(phone=phone, email='', password='', active=True)
                     db.session.add(user)
                     db.session.commit()
 
