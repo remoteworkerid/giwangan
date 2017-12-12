@@ -16,7 +16,7 @@ from flask_security.decorators import anonymous_user_required
 import global_vars as global_vars
 from models import db, Page, Menu, User, Role, SiteConfiguration, Image, AdsenseCode, AdsenseType, PageState
 from views import PageModelView, MenuModelView, UserModelView, RoleModelView, SecuredHomeView, \
-    SiteConfigurationView, ImageView, MasterClickBaitView
+    SiteConfigurationView, ImageView
 
 from utils.humanize import number
 from api.core import ToggleLovesAPI, CommentAPI, AccountKitAPI
