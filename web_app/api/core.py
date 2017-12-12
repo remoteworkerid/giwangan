@@ -101,6 +101,7 @@ class AccountKitAPI(Resource):
                     return json.dumps({'success': True, 'new_registrant': True, 'user_id': user.id}), 200, {'ContentType': 'application/json'}
                 else:
                     print('Existing user')
+                    login_user(user)
                     return json.dumps({'success': True, 'comeback_user': True, 'user_id': user.id}), 200, {'ContentType': 'application/json'}
 
         print('failed on fb')
@@ -121,7 +122,6 @@ class AccountKitAPI(Resource):
         user = User.query.filter_by(id=user_id).first()
         if user is not None:
             user.username = username
-            db.session.add(user)
             db.session.commit()
 
             login_user(user)
