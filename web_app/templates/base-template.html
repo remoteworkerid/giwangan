@@ -321,7 +321,9 @@ single_column_breakpoint: 700
                  if(data.success){
                     $("#comment-box").val('');
                     $("#comment-box").prop('disabled', false);
-                    id_newcomment = "new-comment-" + data.id;
+                    console.log('commenting by');
+                    console.log(data);
+                    var id_newcomment = "new-comment-" + data.id;
                     new_comment = '<p id="' + id_newcomment + '"><a href="#">' + data.username + '</a> ' + data.comment + '</p>';
                     $("#new-comment").append(new_comment);
                     $('body, html').animate({ scrollTop: $("#" + id_newcomment).offset().top }, 1000);

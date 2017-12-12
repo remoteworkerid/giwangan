@@ -56,7 +56,7 @@ class CommentAPI(Resource):
             db.session.commit()
             user = User.query.filter_by(id=user_id).first()
             username = user.username
-            return json.dumps({'success': True, 'comment': comment, 'email': username, 'id': c.id}), 200, {'ContentType': 'application/json'}
+            return json.dumps({'success': True, 'comment': comment, 'username': username, 'id': c.id}), 200, {'ContentType': 'application/json'}
         else:
             return json.dumps({'success': False}), 200, {'ContentType': 'application/json'}
 
