@@ -65,13 +65,7 @@ class AdminOnlyModelView(ModelView):
 
 class PageModelView(AdminOnlyModelView):
     column_list= ('title', 'tag', 'keyword')
-    form_overrides = dict(content=CKEditorField)
-    create_template = 'admin/ckeditor.html'
-    edit_template = 'admin/ckeditor.html'
-
-
-class MasterClickBaitView(AdminOnlyModelView):
-    form_overrides = dict(excerpt=CKEditorField)
+    form_overrides = dict(content=CKEditorField, excerpt=CKEditorField)
     create_template = 'admin/ckeditor.html'
     edit_template = 'admin/ckeditor.html'
 
