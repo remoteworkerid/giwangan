@@ -18,12 +18,20 @@
   vertical-align: middle;
   float:left;
 }
-.btn-primary-outline {
+.btn-transparent {
   background-color: transparent;
 }
+
+.btn-huge{
+    font-size: 22px; //change this to your desired size
+    line-height: normal;
+    -webkit-border-radius: 1px;
+       -moz-border-radius: 1px;
+            border-radius: 1px;
+}
 </style>
-<div id="right_nav"><button type="button" class="btn glyphicon glyphicon-circle-arrow-right btn-primary-outline"></button></div>
-<div id="left_nav"><button type="button" class="btn glyphicon glyphicon-circle-arrow-left btn-primary-outline"></button></div>
+<div id="right_nav"><button type="button" class="btn-huge  btn btn-transparent glyphicon glyphicon-circle-arrow-right"></button></div>
+<div id="left_nav"><button type="button" class="btn-huge btn glyphicon glyphicon-circle-arrow-left btn-transparent"></button></div>
 <h1>{{ page.title }}</h1>
 {% if not page.feature_image is none %}
 <img class="img-responsive img-rounded center-block" src="/static/upload/{{ page.feature_image.path }}"/>
