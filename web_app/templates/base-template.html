@@ -117,7 +117,7 @@
       <ul class="nav navbar-nav navbar-right">
         {% if current_user.is_authenticated %}
         <li class="dropdown">
-        <a class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" href="#"> {{ current_user.email }}
+        <a class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" href="#"> {{ current_user.username }}
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
           {% if current_user.has_role('admin') %}
@@ -322,7 +322,7 @@ single_column_breakpoint: 700
                     $("#comment-box").val('');
                     $("#comment-box").prop('disabled', false);
                     id_newcomment = "new-comment-" + data.id;
-                    new_comment = '<p id="' + id_newcomment + '"><a href="#">' + data.email + '</a> ' + data.comment + '</p>';
+                    new_comment = '<p id="' + id_newcomment + '"><a href="#">' + data.username + '</a> ' + data.comment + '</p>';
                     $("#new-comment").append(new_comment);
                     $('body, html').animate({ scrollTop: $("#" + id_newcomment).offset().top }, 1000);
 
