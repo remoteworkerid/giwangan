@@ -55,8 +55,8 @@ class CommentAPI(Resource):
             page.comments.append(c)
             db.session.commit()
             user = User.query.filter_by(id=user_id).first()
-            email = user.email[:user.email.index('@')]
-            return json.dumps({'success': True, 'comment': comment, 'email': email, 'id': c.id}), 200, {'ContentType': 'application/json'}
+            username = user.username
+            return json.dumps({'success': True, 'comment': comment, 'email': username, 'id': c.id}), 200, {'ContentType': 'application/json'}
         else:
             return json.dumps({'success': False}), 200, {'ContentType': 'application/json'}
 
@@ -114,6 +114,7 @@ class AccountKitAPI(Resource):
         """
         username = request.form.getlist('username')[0]
         user_id = request.form.getlist('user_id')[0]
+        print(username, user_id)
 
         #update username
         user = User.query.filter_by(id=user_id).first()
