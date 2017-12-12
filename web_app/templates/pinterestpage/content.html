@@ -38,7 +38,15 @@ stylize any heading tags withing white-panel below
 
     {% for p in posts %}
       <article class="white-panel"><h3><a href="{{ p.url }}">{{ p.title }}</a></h3>
-        <a href="{{ p.url }}"><img class="img-responsive img-rounded" src="/static/upload/{{ p.feature_image.path }}" alt=""></a>
+        <a href="{{ p.url }}">
+
+          {% if not page.feature_image is none %}
+          <img class="img-responsive img-rounded center-block" src="/static/upload/{{ page.feature_image.path }}"/>
+          {% elif not page.feature_image_external_url is none %}
+          <img class="img-responsive img-rounded center-block" src="{{ page.feature_image_external_url }}"/>
+          {% endif %}
+        </a>
+
         <p>{{ p.excerpt|safe }}</p>
           <p>
           <a href="/{{ p.category }}"><span class="label label-success pull-left">{{ p.category }}</span></a>
