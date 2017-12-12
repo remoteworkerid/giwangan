@@ -40,10 +40,10 @@ stylize any heading tags withing white-panel below
       <article class="white-panel"><h3><a href="{{ p.url }}">{{ p.title }}</a></h3>
         <a href="{{ p.url }}">
 
-          {% if not page.feature_image is none %}
-          <img class="img-responsive img-rounded center-block" src="/static/upload/{{ page.feature_image.path }}"/>
-          {% elif not page.feature_image_external_url is none %}
-          <img class="img-responsive img-rounded center-block" src="{{ page.feature_image_external_url }}"/>
+          {% if not p.feature_image is none %}
+          <img class="img-responsive img-rounded center-block" src="/static/upload/{{ p.feature_image.path }}"/>
+          {% elif not p.feature_image_external_url is none %}
+          <img class="img-responsive img-rounded center-block" src="{{ p.feature_image_external_url }}"/>
           {% endif %}
         </a>
 
