@@ -67,10 +67,9 @@ class Page(db.Model):
 
     next_page_id = Column(Integer, ForeignKey('page.id', name='fx_page_next'))
     next_page = relationship('Page', remote_side=[id], foreign_keys=[next_page_id])
-    next_page = relationship('Page', remote_side=[id], foreign_keys=[next_page_id])
 
     def __repr__(self):
-        return self.title
+        return str(self.title)
 
 
 def page_before_insert_update_listener(mapper, connection, target):
@@ -106,7 +105,7 @@ class Menu(db.Model):
     page = relationship("Page", backref=backref("Linked from Menu", uselist=False))
 
     def __repr__(self):
-        return self.title
+        return str(self.title)
 
 
 class SiteConfiguration(db.Model):
@@ -126,7 +125,7 @@ class Image(db.Model):
     path = db.Column(db.Unicode(128))
 
     def __repr__(self):
-        return self.path
+        return str(self.path)
 
 
 @listens_for(Image, 'after_delete')
@@ -152,7 +151,7 @@ class AdsenseType(db.Model):
     name = db.Column(db.String, nullable=False)
 
     def __repr__(self):
-        return self.name
+        return str(self.name)
 
 
 class AdsenseCode(db.Model):
@@ -165,7 +164,7 @@ class AdsenseCode(db.Model):
 
 
     def __repr__(self):
-        return self.code
+        return str(self.code)
 
 # Flask-Security model requirements
 roles_users = db.Table('roles_users',
@@ -179,7 +178,7 @@ class Role(db.Model, RoleMixin):
     description = db.Column(db.String(255))
 
     def __repr__(self):
-        return self.name
+        return str(self.name)
 
 
 class User(db.Model, UserMixin):
@@ -197,5 +196,5 @@ class User(db.Model, UserMixin):
                             backref=db.backref('users', lazy='dynamic'))
 
     def __repr__(self):
-        return self.email
+        return str(self.email)
 
