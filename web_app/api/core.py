@@ -64,7 +64,10 @@ class CommentAPI(Resource):
 class AccountKitAPI(Resource):
 
     def put(self):
-        print('fb success')
+        """
+        handle partial registration: logging in user, either by creating it first or get the existing one
+        :return:
+        """
         code = request.form.getlist('code')[0]
         appid = '303680430123651'
         secret = '46668cf70438c9644bff716cea9db3e9'
@@ -78,9 +81,6 @@ class AccountKitAPI(Resource):
             user_id = data['id']
             user_access_token = data['access_token']
             refresh_interval = data['token_refresh_interval_sec']
-            print(user_id, user_access_token, refresh_interval)
-
-
             me_endpoint_url = 'https://graph.accountkit.com/v1.1/me?access_token={}'.format(user_access_token)
 
             response = requests.get(me_endpoint_url)
@@ -95,9 +95,29 @@ class AccountKitAPI(Resource):
                     db.session.add(user)
                     db.session.commit()
 
-                login_user(user)
-
-                return json.dumps({'success': True, 'phone': phone}), 200, {'ContentType': 'application/json'}
+                return json.dumps({'success': True, 'new_registrant': True, 'user_id': user.id, 'phone': phone}), 200, {'ContentType': 'application/json'}
 
         return json.dumps({'success': False}), 200, {'ContentType': 'application/json'}
+
+    def post(self):
+        """
+        final act, update username for new registrant
+        :return:
+        """
+        username = request.form.getlist('username')[0]
+        user_id = request.form.getlist('user_id')[0]
+
+        #update username
+        user = User.query.filter_by(id=user_id).first()
+        if user is not None:
+            user.username = username
+            db.session.add(user)
+            db.session.commit()
+
+            login_user(user)
+
+            return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+        else:
+            return json.dumps({'success': False}), 200, {'ContentType': 'application/json'}
+
 

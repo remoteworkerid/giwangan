@@ -3,6 +3,7 @@
   <head>
     <script>
         var csrf = '{{generate_csrf_token() }}';
+        var new_registrant_user_id = '';
     </script>
     {% if not global_vars.GA_TRACKING_CODE is none %}
       <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -171,14 +172,14 @@
                 <!--<button onclick="smsLogin();" class="btn btn-primary">Login</button>-->
             <!--</div>-->
 
-               <div class="input-group">
-        <input placeholder="Login dengan email/HP disini" id="login_phone_or_email" class="form-control"/>
-        <span class="input-group-btn">
-            <button class="btn btn-default value-control" id="btn_login_phone_or_email">
-            <span class="glyphicon glyphicon-log-in"></span>
-        </button>
-        </span>
-    </div>
+           <div class="input-group">
+                <input placeholder="Login dengan email/HP disini" id="login_phone_or_email" class="form-control"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-default value-control" id="btn_login_phone_or_email">
+                    <span class="glyphicon glyphicon-log-in"></span>
+                </button>
+                </span>
+            </div>
 
         </div>
 
@@ -223,6 +224,29 @@
         {% endif %}
       {% endif %}
     </div>
+
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">NezzMedia</h4>
+          </div>
+          <div class="modal-body">
+            <div class="input-group">
+                <input placeholder="Hai, masukkan namamu ya" id="new_registrant_username" class="form-control"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-default value-control" id="btn_new_registrant_username">
+                    <span class="glyphicon glyphicon-log-in"></span>
+                </button>
+                </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
     <!-- Bootstrap core JavaScript
@@ -250,6 +274,7 @@ single_column_breakpoint: 700
 
     {% if current_user.is_authenticated %}
 <script>
+  $('#myModal').modal({ show: false});
   $('#button-of-love').on('click', function (e) {
     $.ajax({
          type: "PUT",
@@ -322,6 +347,7 @@ single_column_breakpoint: 700
 </script>
     {% else %}
 
+  {% endif %}
     <script>
 
         function validate_email(email) {
@@ -341,9 +367,53 @@ single_column_breakpoint: 700
         };
 
         $("#login_phone_or_email").keyup(function(event) {
+            // TOREMOVE
+            $("#btn_new_registrant_username").prop('disabled', true);
+            $('#myModal').modal({backdrop: 'static', keyboard: false});
             if (event.keyCode === 13) {
                 $("#btn_login_phone_or_email").click();
             }
+        });
+
+        $('#btn_new_registrant_username').on('click', function (e) {
+            var username = $('#new_registrant_username').val();
+            // send username to backend for the current user
+            $.ajax({
+                type: "POST",
+                url: "/api/accountkit",
+                data: {'username': username, 'user_id': new_registrant_user_id},
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                data = JSON.parse(data);
+                if(data.success){
+                    location.reload();
+                 }else{
+                    console.log('Not success after partial');
+                 }
+                },
+
+                error: function (jqXHR, status) {
+                 console.log(jqXHR);
+                 //retry
+                }
+            });
+
+        });
+
+        $("#new_registrant_username").keyup(function(event) {
+            username = $('#new_registrant_username').val();
+            allow_pass = username.trim().length >= 3;
+
+            if (allow_pass && event.keyCode === 13) {
+                $("#btn_new_registrant_username").click();
+            }
+
+            if(allow_pass){
+                $("#btn_new_registrant_username").prop('disabled', false);
+            }else{
+                $("#btn_new_registrant_username").prop('disabled', true);
+            }
+
         });
 
         $('#btn_login_phone_or_email').on('click', function (e) {
@@ -394,7 +464,10 @@ single_column_breakpoint: 700
                      success: function (data, status, jqXHR) {
                         data = JSON.parse(data);
                         if(data.success){
-                            window.location = '/';
+                            if(data.new_registrant){
+                                new_registrant_user_id = data.user_id
+                                $('#myModal').modal('show');
+                            }
                          }else{
                             console.log('Not success after partial');
                          }
@@ -417,4 +490,3 @@ single_column_breakpoint: 700
             }
         }
     </script>
-  {% endif %}
