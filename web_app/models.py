@@ -51,7 +51,7 @@ class Page(db.Model):
 
     stamp = Column(DateTime)
     category = Column(String)
-    url = Column(String, nullable=False)
+    url = Column(String)
 
     image_id = Column(Integer, ForeignKey('image.id'))
     feature_image = relationship('Image', backref='Page', cascade='all,delete')
