@@ -94,8 +94,10 @@ class AccountKitAPI(Resource):
                     user = User(phone=phone, email='', password='', active=True)
                     db.session.add(user)
                     db.session.commit()
+                    return json.dumps({'success': True, 'new_registrant': True, 'user_id': user.id}), 200, {'ContentType': 'application/json'}
+                else:
+                    return json.dumps({'success': True, 'comeback_user': True, 'user_id': user.id}), 200, {'ContentType': 'application/json'}
 
-                return json.dumps({'success': True, 'new_registrant': True, 'user_id': user.id, 'phone': phone}), 200, {'ContentType': 'application/json'}
 
         return json.dumps({'success': False}), 200, {'ContentType': 'application/json'}
 
