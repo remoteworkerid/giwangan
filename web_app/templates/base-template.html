@@ -460,6 +460,7 @@ single_column_breakpoint: 700
                      dataType: "json",
                      success: function (data, status, jqXHR) {
                         data = JSON.parse(data);
+                        console.log(data);
                         if(data.success){
                             if(data.new_registrant){
                                 new_registrant_user_id = data.user_id
