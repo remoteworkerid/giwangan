@@ -1,6 +1,6 @@
 #!/bin/sh
 # copy from DO to local
-# scp root@nm:~/db.sql .
+scp root@nm:~/db.sql .
 
 # stop web_app and exit from any app using it (such as pgadmin3)
 sudo docker-compose stop web_app
