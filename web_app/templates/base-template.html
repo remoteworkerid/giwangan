@@ -367,7 +367,6 @@ single_column_breakpoint: 700
         };
 
         $("#login_phone_or_email").keyup(function(event) {
-            $('#myModal').modal({backdrop: 'static', keyboard: false});
             if (event.keyCode === 13) {
                 $("#btn_login_phone_or_email").click();
             }
@@ -464,7 +463,7 @@ single_column_breakpoint: 700
                         if(data.success){
                             if(data.new_registrant){
                                 new_registrant_user_id = data.user_id
-                                $('#myModal').modal('show');
+                                $('#myModal').modal({backdrop: 'static', keyboard: false});
                             }
                          }else{
                             console.log('Not success after partial');
