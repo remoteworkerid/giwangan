@@ -90,12 +90,15 @@ class AccountKitAPI(Resource):
                 phone = data['phone']['number'] if data['phone'] else ''
                 #register
                 user = User.query.filter_by(phone=phone).first()
+                print(phone)
                 if user is None:
+                    print('User not exist, creating')
                     user = User(phone=phone, email='', password='', active=True)
                     db.session.add(user)
                     db.session.commit()
                     return json.dumps({'success': True, 'new_registrant': True, 'user_id': user.id}), 200, {'ContentType': 'application/json'}
                 else:
+                    print('Existing user')
                     return json.dumps({'success': True, 'comeback_user': True, 'user_id': user.id}), 200, {'ContentType': 'application/json'}
 
 
