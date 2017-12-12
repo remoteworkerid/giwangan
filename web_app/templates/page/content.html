@@ -4,6 +4,26 @@
     };
 
 </script>
+<style>
+#right_nav {
+  position:fixed;
+  right: 0;
+  vertical-align: middle;
+  float:right;
+}
+
+#left_nav {
+  position:fixed;
+  left: 0;
+  vertical-align: middle;
+  float:left;
+}
+.btn-primary-outline {
+  background-color: transparent;
+}
+</style>
+<div id="right_nav"><button type="button" class="btn glyphicon glyphicon-circle-arrow-right btn-primary-outline"></button></div>
+<div id="left_nav"><button type="button" class="btn glyphicon glyphicon-circle-arrow-left btn-primary-outline"></button></div>
 <h1>{{ page.title }}</h1>
 {% if not page.feature_image is none %}
 <img class="img-responsive img-rounded center-block" src="/static/upload/{{ page.feature_image.path }}"/>
@@ -34,3 +54,4 @@
             <p id="new-comment"></p>
         </div>
     </div>
+
