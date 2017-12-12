@@ -23,7 +23,7 @@
             <p id="list-comment">
                 {% else %}
             {% for c in page.comments|reverse %}
-            <p><a href="#">{{ c.user.email|safe_email }}</a> {{ c.comment }}</p>
+            <p><a href="#">{{ c.user.username }}</a> {{ c.comment }}</p>
             {% endfor %}
             </p>
             <p id="new-comment"></p>
