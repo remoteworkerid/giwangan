@@ -114,6 +114,7 @@ class AccountKitAPI(Resource):
         """
         username = request.form.getlist('username')[0]
         user_id = request.form.getlist('user_id')[0]
+        print('change new registrant username')
         print(username, user_id)
 
         #update username

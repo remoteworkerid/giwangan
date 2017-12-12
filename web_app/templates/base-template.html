@@ -463,6 +463,8 @@ single_column_breakpoint: 700
                         console.log(data);
                         if(data.success){
                             if(data.new_registrant){
+                                console.log('New registrant is here');
+                                console.log(data)
                                 new_registrant_user_id = data.user_id
                                 $('#myModal').modal({backdrop: 'static', keyboard: false});
                             }
