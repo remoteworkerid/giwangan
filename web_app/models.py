@@ -74,6 +74,29 @@ def page_before_insert_update_listener(mapper, connection, target):
 event.listen(Page, 'before_insert', page_before_insert_update_listener)
 event.listen(Page, 'before_update', page_before_insert_update_listener)
 
+clickbait_pages = db.Table('clickbait_pages',
+        db.Column('order', db.Integer()),
+        db.Column('master_clickbait_id', db.Integer(), db.ForeignKey('master_clickbait.id', name='fx_child_1')),
+        db.Column('page_id', db.Integer(), db.ForeignKey('page.id', name='fx_child_2')))
+
+
+class MasterClickBait(db.Model):
+    __tablename__ = 'master_clickbait'
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String, nullable=False)
+    excerpt = Column(String, nullable=True)
+    stamp = Column(DateTime, default=datetime.datetime.utcnow)
+    category = Column(String)
+    url = Column(String, nullable=False)
+
+    page_id = Column(Integer, ForeignKey('page.id', name='fx_child_click'))
+    pages = relationship('Page', secondary=clickbait_pages,
+                            backref=db.backref('master_clickbait', lazy='dynamic'))
+
+
+
+
 
 class Comment(db.Model):
     __tablename__ = 'comment'

@@ -70,6 +70,12 @@ class PageModelView(AdminOnlyModelView):
     edit_template = 'admin/ckeditor.html'
 
 
+class MasterClickBaitView(AdminOnlyModelView):
+    form_overrides = dict(excerpt=CKEditorField)
+    create_template = 'admin/ckeditor.html'
+    edit_template = 'admin/ckeditor.html'
+
+
 class MenuModelView(AdminOnlyModelView):
     form_columns = ('title', 'order')
 

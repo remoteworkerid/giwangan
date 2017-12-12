@@ -14,9 +14,10 @@ from flask_security import SQLAlchemyUserDatastore, Security
 from flask_security.decorators import anonymous_user_required
 
 import global_vars as global_vars
-from models import db, Page, Menu, User, Role, SiteConfiguration, Image, AdsenseCode, AdsenseType, PageState
+from models import db, Page, Menu, User, Role, SiteConfiguration, Image, AdsenseCode, AdsenseType, PageState, \
+    MasterClickBait
 from views import PageModelView, MenuModelView, UserModelView, RoleModelView, SecuredHomeView, \
-    SiteConfigurationView, ImageView
+    SiteConfigurationView, ImageView, MasterClickBaitView
 
 from utils.humanize import number
 from api.core import ToggleLovesAPI, CommentAPI, AccountKitAPI
@@ -39,6 +40,7 @@ def create_app():
     admin.add_view(ModelView(AdsenseType, db.session))
     admin.add_view(ModelView(AdsenseCode, db.session))
     admin.add_view(ModelView(PageState, db.session))
+    admin.add_view(MasterClickBaitView(MasterClickBait, db.session))
 
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security = Security(app, user_datastore)
