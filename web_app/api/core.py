@@ -85,6 +85,8 @@ class AccountKitAPI(Resource):
 
             response = requests.get(me_endpoint_url)
             if response.status_code == 200:
+                print('on it fb')
+                print(response.text)
                 data = json.loads(response.text)
 
                 phone = data['phone']['number'] if data['phone'] else ''
@@ -101,7 +103,8 @@ class AccountKitAPI(Resource):
                     print('Existing user')
                     return json.dumps({'success': True, 'comeback_user': True, 'user_id': user.id}), 200, {'ContentType': 'application/json'}
 
-
+        print('failed on fb')
+        print(response.text)
         return json.dumps({'success': False}), 200, {'ContentType': 'application/json'}
 
     def post(self):
