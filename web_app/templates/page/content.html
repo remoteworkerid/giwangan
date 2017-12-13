@@ -188,7 +188,7 @@
 {% elif not page.feature_image_external_url is none %}
 <img class="img-responsive img-rounded center-block" src="{{ page.feature_image_external_url }}"/>
 {% elif not page.feature_youtube_embed_code is none %}
-{{ page.feature_youtube_embed_code|safe }}
+<div class="video-responsive">{{ page.feature_youtube_embed_code|safe }}</div>
 {% endif %}
     <div class="row">
         <div class="col-xs-12 col-md-8">
