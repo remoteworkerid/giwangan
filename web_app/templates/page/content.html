@@ -199,7 +199,7 @@
 <p class="text-justify">{{ page.excerpt| safe }}</p>
 
 {% if not global_vars.ADSENSE_INAPP_ARTICLE_CODE is none %}
-    {{ global_vars.ADSENSE_INAPP_ARTICLE_CODE|safe }}
+            <p>{{ global_vars.ADSENSE_INAPP_ARTICLE_CODE|safe }}</p>
 {% endif %}
 <p class="text-justify">
     {{ page.content| safe }}
