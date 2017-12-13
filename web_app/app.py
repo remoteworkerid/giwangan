@@ -102,6 +102,13 @@ def create_app():
             if ads is not None:
                 global_vars.ADSENSE_FOOTER = ads.code
 
+            # footer
+            ads = db.session.query(AdsenseCode).join(AdsenseType).filter(AdsenseType.name == 'Large Skyscraper').all()
+            if ads is not None:
+                for a in ads:
+                    global_vars.ADSENSE_SKYSCRAPER.append(a.code)
+
+
     @app.route('/')
     @app.route('/<uri>')
     def index(uri=None):

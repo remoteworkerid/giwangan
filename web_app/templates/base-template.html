@@ -26,11 +26,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     {% if not page.excerpt is none %}
-    <meta name="description" content="{{ page.excerpt }}">
+    <meta name="description" content="{{ page.excerpt|safe }}">
     {% else %}
     <meta name="description" content="{{ global_vars.DESCRIPTION }}">
     {% endif %}
-    <meta name="author" content="">
+    <meta name="author" content="NezzMedia.com">
     <link rel="icon" href="/static/favicon.png">
 
     <title>{{ global_vars.SITE_NAME }} - {{ global_vars.SITE_TAGLINE }}</title>
@@ -84,6 +84,25 @@
     position:absolute;
 }
 </style>
+    <style>
+     //medium+ screen sizes
+@media (min-width:992px) {
+    .desktop-only {
+        display:block !important;
+    }
+}
+
+//small screen sizes
+@media (max-width: 991px) {
+    .mobile-only {
+        display:block !important;
+    }
+
+    .desktop-only {
+        display:none !important;
+    }
+}
+    </style>
 
   </head>
 
@@ -98,7 +117,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand brand visible-lg" href="/">{{ global_vars.SITE_NAME }}</a>
+      <a class="navbar-brand brand visible-lg" href="/"><img src="/static/long-logo.png"/></a>
       <a class="navbar-brand brand hidden-lg" href="/"><img src="/static/logo.png"/> </a>
       <a class="navbar-brand brand hidden-lg" href="/">
         {% if page.category is none %}
@@ -118,26 +137,8 @@
         </li>
         {% endfor %}
 
-        <!--<li class="dropdown">-->
-          <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile <span class="caret"></span></a>-->
-          <!--<ul class="dropdown-menu" role="menu">-->
-            <!--<li><a href="/admin" target="_blank">Admin</a></li>-->
-            <!--<li><a href="#">Another action</a></li>-->
-            <!--<li><a href="#">Something else here</a></li>-->
-            <!--<li class="divider"></li>-->
-            <!--<li><a href="#">Separated link</a></li>-->
-            <!--<li class="divider"></li>-->
-            <!--<li><a href="#">One more separated link</a></li>-->
-          <!--</ul>-->
-        <!--</li>-->
       </ul>
 
-      <!--<form class="navbar-form navbar-left" role="search">-->
-        <!--<div class="form-group">-->
-          <!--<input type="text" class="form-control" placeholder="Search">-->
-        <!--</div>-->
-        <!--<button type="submit" class="btn btn-default">Submit</button>-->
-      <!--</form>-->
       {% if global_vars.SHOW_REGISTRATION_MENU == True  %}
       <ul class="nav navbar-nav navbar-right">
         {% if current_user.is_authenticated %}
@@ -161,23 +162,36 @@
 </nav>
     <div class="container-fluid">
       <div class="row">
+        <div class="col-md-2">
+          <!--TODO SKYSCRAPER-->
+        </div>
         <div class="col-xs-12 col-md-8">
   {% if not global_vars.ADSENSE_HEADER is none %}
   {{ global_vars.ADSENSE_HEADER | safe}}
   {% endif %}
         </div>
+        <div class="col-md-2">
+        </div>
       </div>
     <div class="container-fluid">
       <div class="row">
+        <div class="col-md-2">
+        </div>
         <div class="col-xs-12 col-md-8">
         {{ content|safe }}
+        </div>
+        <div class="col-md-2">
         </div>
 
 {% if not global_vars.ADSENSE_FOOTER is none %}
         <div class="row">
+          <div class="col-md-2">
+          </div>
           <div class="col-xs-12 col-md-8" align="center">
   {{ global_vars.ADSENSE_FOOTER | safe}}
   {% endif %}
+          </div>
+          <div class="col-md-2">
           </div>
         </div>
       </div>
@@ -188,15 +202,6 @@
       {% if not current_user.is_authenticated %}
       <div class="row">
         <div class="col-xs-12 col-md-8">
-          <!--<a href="{{ url_for_security('register') }}{% if 'next' in request.args %}?next={{ request.args.next|urlencode }}{% endif %}" class="navbar-btn btn-success btn center-block">-->
-          <!--Jadilah 100 Nezzers pertama!</a>-->
-
-            <!--<div class="form-group row">-->
-                <!--<input value="+62" id="fb_country_code" class="form-control"/>-->
-                <!---->
-                <!--<button onclick="smsLogin();" class="btn btn-primary">Login</button>-->
-            <!--</div>-->
-
            <div class="input-group">
                 <input placeholder="Login dengan nomor HP disini" id="login_phone_or_email" class="form-control"/>
                 <span class="input-group-btn">
@@ -205,20 +210,7 @@
                 </button>
                 </span>
             </div>
-
         </div>
-
-
-            <!--<form>-->
-  <!--<div class="form-group">-->
-
-
-            <!--<div>OR</div>-->
-            <!--<input placeholder="email" id="fb_email"/>-->
-            <!--<button onclick="emailLogin();">Login via Email</button>-->
-  <!--</div>-->
-            <!--</form>-->
-
         </div>
       </div>
       {% else %}
@@ -240,11 +232,15 @@
       </div>
         {% else %}
         <div class="row">
+          <div class="col-md-2">
+          </div>
         <div class="col-xs-12 col-md-8">
             <p class="navbar-btn btn-success btn center-block">
             Nikmati harimu {{ current_user.username }}! <span class="fa fa-smile"></span>
             </p>
         </div>
+          <div class="col-md-2">
+          </div>
         </div>
         {% endif %}
       {% endif %}
