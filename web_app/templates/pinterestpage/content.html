@@ -44,6 +44,8 @@ stylize any heading tags withing white-panel below
           <img class="img-responsive img-rounded center-block" src="/static/upload/{{ p.feature_image.path }}"/>
           {% elif not p.feature_image_external_url is none %}
           <img class="img-responsive img-rounded center-block" src="{{ p.feature_image_external_url }}"/>
+          {% elif not p.feature_youtube_embed_code is none %}
+          {{ p.feature_youtube_embed_code|safe }}
           {% endif %}
         </a>
 

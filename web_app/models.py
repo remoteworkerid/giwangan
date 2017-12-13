@@ -56,6 +56,7 @@ class Page(db.Model):
     image_id = Column(Integer, ForeignKey('image.id'))
     feature_image = relationship('Image', backref='Page', cascade='all,delete')
     feature_image_external_url = Column(String)
+    feature_youtube_embed_code = Column(String)
 
     pagestate_id = Column(Integer, ForeignKey('pagestate.id', name='fk_page_pagestate'))
     pagestate = relationship('PageState', backref='Page', cascade='all,delete')
