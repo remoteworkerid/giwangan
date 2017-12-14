@@ -119,6 +119,7 @@ def create_app():
         else:
             page = Page.query.filter(Page.url == uri).first()
         menus = Menu.query.order_by('order')
+
         if page is None:
             # TODO cute 404
             return uri
@@ -130,12 +131,13 @@ def create_app():
 
                 if password is not None and check_password_hash(page.password, password):
                     session['FORBIDDEN_' + page.url] = False
-                    return redirect(format(page.url))
+                    return redirect(page.url)
                 return render_template('password_protected.html', next_page=page.url)
 
             content = views_.process(page)
             og = views_.get_og(page)
             loved = views_.get_love(page)
+
             return render_template('index.html', global_vars=global_vars, content=content,
                                    menus=menus, og=og, page=page, loved=loved)
 
