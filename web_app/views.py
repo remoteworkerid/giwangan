@@ -89,12 +89,13 @@ class PageModelView(AdminOnlyModelView):
 
     form_columns = ['title', 'category', 'tag', 'excerpt', 'content','is_homepage', 'prev_page', 'next_page',
                     'is_protected', 'password']
-    form_overrides = dict(content=CKEditorField, excerpt=CKEditorField)
     create_template = 'admin/ckeditor.html'
     edit_template = 'admin/ckeditor.html'
 
     form_overrides = dict(
         password=SafePasswordField,
+        content=CKEditorField,
+        excerpt=CKEditorField
     )
     form_widget_args = dict(
         password=dict(
