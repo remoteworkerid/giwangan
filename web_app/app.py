@@ -7,6 +7,7 @@ from werkzeug.security import check_password_hash
 from werkzeug.utils import redirect
 
 sys.path.append(os.getcwd() + "/web_app/")
+import importlib
 
 import humanize
 import flask_security
@@ -110,11 +111,9 @@ def create_app():
                 for a in ads:
                     global_vars.ADSENSE_SKYSCRAPER.append(a.code)
 
-
     @app.route('/')
     @app.route('/<uri>', methods=['GET', 'POST'])
     def index(uri=None):
-        import importlib
         if uri is None:
             page = Page.query.filter_by(is_homepage=True).first()
         else:
