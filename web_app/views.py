@@ -3,8 +3,9 @@ from flask_admin import BaseView, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 from flask_login import current_user
 from markupsafe import Markup
+from werkzeug.security import generate_password_hash
 from werkzeug.utils import redirect
-from wtforms import TextAreaField
+from wtforms import TextAreaField, PasswordField, TextField
 from wtforms.ext.csrf import SecureForm
 from wtforms.widgets import TextArea
 from flask_admin import form
@@ -63,11 +64,56 @@ class AdminOnlyModelView(ModelView):
         return redirect(url_for('security.login', next=request.full_path))
 
 
+# https://stackoverflow.com/questions/28970076/how-to-use-flask-admin-for-editing-modelview#_=_
+class SafePasswordField(TextField):
+    def process_data(self, value):
+        self.data = ''  # even if password is already set, don't show hash here
+        # or else it will be double-hashed on save
+        self.orig_hash = value
+
+    def process_fromdata(self, valuelist):
+        value = ''
+        if valuelist:
+            value = valuelist[0]
+        if value:
+            self.data = generate_password_hash(value)
+        else:
+            self.data = self.orig_hash
+
+
 class PageModelView(AdminOnlyModelView):
-    column_list= ('title', 'tag', 'keyword')
+    column_list= ('title', 'tag', 'keyword', 'view_count', 'stamp')
+    column_sortable_list = ['view_count', 'stamp']
+    column_searchable_list = ['title', 'tag']
+    column_default_sort = 'stamp'
+
+    form_columns = ['title', 'category', 'tag', 'excerpt', 'content','is_homepage', 'prev_page', 'next_page',
+                    'is_protected', 'password']
     form_overrides = dict(content=CKEditorField, excerpt=CKEditorField)
     create_template = 'admin/ckeditor.html'
     edit_template = 'admin/ckeditor.html'
+
+    form_overrides = dict(
+        password=SafePasswordField,
+    )
+    form_widget_args = dict(
+        password=dict(
+            placeholder='Masukkan password baru jika ingin merubah password lama',
+        ),
+    )
+
+    def on_model_change(self, form, model, is_created):
+        if is_created:
+            model.active = True
+            model.pending = False
+
+        if form.password.data:
+            model.password = generate_password_hash(form.password.data.strip())
+
+    def scaffold_form(self):
+        form_class = super(PageModelView, self).scaffold_form()
+        form_class.password = PasswordField('password')
+        return form_class
 
 
 class MenuModelView(AdminOnlyModelView):

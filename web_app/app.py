@@ -3,6 +3,8 @@ import sys
 
 from flask_admin.contrib.sqla import ModelView
 from flask_wtf import CsrfProtect
+from werkzeug.security import check_password_hash
+from werkzeug.utils import redirect
 
 sys.path.append(os.getcwd() + "/web_app/")
 
@@ -110,7 +112,7 @@ def create_app():
 
 
     @app.route('/')
-    @app.route('/<uri>')
+    @app.route('/<uri>', methods=['GET', 'POST'])
     def index(uri=None):
         import importlib
         if uri is None:
@@ -119,9 +121,19 @@ def create_app():
             page = Page.query.filter(Page.url == uri).first()
         menus = Menu.query.order_by('order')
         if page is None:
+            # TODO cute 404
             return uri
         else:
-            views_= importlib.import_module('web_app.apps.{}.views'.format(page.subtype))
+            views_ = importlib.import_module('web_app.apps.{}.views'.format(page.subtype))
+
+            if page.is_protected and session.get('FORBIDDEN_' + page.url, True):
+                password = request.form.get('password')
+
+                if password is not None and check_password_hash(page.password, password):
+                    session['FORBIDDEN_' + page.url] = False
+                    return redirect(format(page.url))
+                return render_template('password_protected.html', next_page=page.url)
+
             content = views_.process(page)
             og = views_.get_og(page)
             loved = views_.get_love(page)

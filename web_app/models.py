@@ -70,6 +70,9 @@ class Page(db.Model):
     next_page_id = Column(Integer, ForeignKey('page.id', name='fx_page_next'))
     next_page = relationship('Page', remote_side=[id], foreign_keys=[next_page_id])
 
+    is_protected = db.Column(db.Boolean)
+    password = db.Column(db.String(255))
+
     def __repr__(self):
         return str(self.title)
 
