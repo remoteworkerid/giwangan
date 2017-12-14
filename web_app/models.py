@@ -49,7 +49,7 @@ class Page(db.Model):
     subtype = Column(String, default='page')
     subtype_data = Column(String)
 
-    stamp = Column(DateTime)
+    stamp = Column(DateTime, default=datetime.datetime.utcnow)
     category = Column(String)
     url = Column(String)
 
@@ -80,6 +80,12 @@ class Page(db.Model):
 def page_before_insert_update_listener(mapper, connection, target):
     if target.url is None:
         target.url = get_safe_url(target.title)
+
+    if target.stamp is None:
+        target.stamp = datetime.datetime.utcnow
+
+    if target.subtype is None:
+        target.subtype = 'page'
 
 
 event.listen(Page, 'before_insert', page_before_insert_update_listener)

@@ -88,7 +88,7 @@ class PageModelView(AdminOnlyModelView):
     column_default_sort = 'stamp'
 
     form_columns = ['title', 'category', 'tag', 'excerpt', 'content','url', 'is_homepage', 'prev_page', 'next_page',
-                    'is_protected', 'password']
+                    'subtype', 'pagestate', 'is_protected', 'password', 'stamp', ]
     create_template = 'admin/ckeditor.html'
     edit_template = 'admin/ckeditor.html'
 
