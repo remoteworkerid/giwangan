@@ -52,6 +52,9 @@
                 </button>
                 </span>
             </div>
+              <div id="result">
+                  <hr/>
+              </div>
           </div>
         </div>
       </div>
@@ -80,6 +83,13 @@
              success: function (data, status, jqXHR) {
                 data = JSON.parse(data);
                 console.log(data);
+                $('#result').append(data.result.title);
+                text = ' \
+                <div class="input-group"> \
+                <textarea id="txt_result" class="form-control">' + data.result.text + '</textarea> \
+            </div>';
+            $('#result').append(text);
+
              },
 
              error: function (jqXHR, status) {
@@ -87,8 +97,6 @@
 
              }
         });
-
-        $('#myModal').modal('hide');
       });
 
 

@@ -13,6 +13,8 @@ class TestAssistant(unittest.TestCase):
         result, status, type = core.get(url)
         result = json.loads(result)
 
+        self.assertEqual("The Most Extreme Travel Adventures in the World | Reader's Digest - Reader's Digest",
+                         result['result']['title'])
         self.assertTrue('Popular sports include skiing, ice hockey and ice fishing.' in
                         result['result']['text'])
         self.assertEqual(result['result']['images'][10]['src'],
