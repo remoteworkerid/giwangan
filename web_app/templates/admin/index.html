@@ -15,16 +15,16 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-xs-6 col-md-6">
-                          <a href="#" class="btn btn-danger btn-lg" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/>Keyword</a>
-                          <a href="#" class="btn btn-warning btn-lg" role="button"><span class="glyphicon glyphicon-bookmark"></span> <br/>Bookmarks</a>
-                          <a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-signal"></span> <br/>Reports</a>
-                          <a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-comment"></span> <br/>Comments</a>
+                          <a id="btn_fetch_page" href="#" class="btn btn-danger btn-lg" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/>Fetch Page</a>
+                          <!--<a href="#" class="btn btn-warning btn-lg" role="button"><span class="glyphicon glyphicon-bookmark"></span> <br/>Fetc</a>-->
+                          <!--<a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-signal"></span> <br/>Reports</a>-->
+                          <!--<a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-comment"></span> <br/>Comments</a>-->
                         </div>
                         <div class="col-xs-6 col-md-6">
-                          <a href="#" class="btn btn-success btn-lg" role="button"><span class="glyphicon glyphicon-user"></span> <br/>Users</a>
-                          <a href="#" class="btn btn-info btn-lg" role="button"><span class="glyphicon glyphicon-file"></span> <br/>Notes</a>
-                          <a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-picture"></span> <br/>Photos</a>
-                          <a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-tag"></span> <br/>Tags</a>
+                          <a href="#" class="btn btn-success btn-lg" role="button"><span class="glyphicon glyphicon-user"></span> <br/>Check Trend</a>
+                          <!--<a href="#" class="btn btn-info btn-lg" role="button"><span class="glyphicon glyphicon-file"></span> <br/>Notes</a>-->
+                          <!--<a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-picture"></span> <br/>Photos</a>-->
+                          <!--<a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-tag"></span> <br/>Tags</a>-->
                         </div>
                     </div>
                     <a href="http://nezzmedia.com" class="btn btn-success btn-lg btn-block" role="button"><span class="glyphicon glyphicon-globe"></span> Giwangan CMS</a>
@@ -33,4 +33,64 @@
         </div>
     </div>
 </div>
+
+<div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Content Assistant</h4>
+          </div>
+          <div class="modal-body">
+            <div class="input-group">
+                <input placeholder="URL" id="txt_url" class="form-control"
+                value="https://www.rd.com/advice/travel/top-10-most-extreme-travel-adventures-in-the-world/"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-default value-control" id="btn_fetch">
+                    <span class="glyphicon glyphicon-download"></span>
+                </button>
+                </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+ <!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script>
+      $('#myModal').modal({ show: false});
+      $('#btn_fetch_page').on('click', function (e) {
+        $('#myModal').modal({backdrop: 'static'});
+      });
+
+      $('#btn_fetch').on('click', function (e) {
+        url = $('#txt_url').val();
+
+        $.ajax({
+             type: "GET",
+             url: "/api/assistant",
+             data: {'url': url},
+             dataType: "json",
+             success: function (data, status, jqXHR) {
+                data = JSON.parse(data);
+                console.log(data);
+             },
+
+             error: function (jqXHR, status) {
+                 console.log(jqXHR);
+
+             }
+        });
+
+        $('#myModal').modal('hide');
+      });
+
+
+</script>
 {% endblock %}

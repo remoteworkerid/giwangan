@@ -6,6 +6,8 @@ from flask_wtf import CsrfProtect
 from werkzeug.security import check_password_hash
 from werkzeug.utils import redirect
 
+from assistant.core import AssistantCore
+
 sys.path.append(os.getcwd() + "/web_app/")
 import importlib
 
@@ -51,6 +53,7 @@ def create_app():
     api.add_resource(ToggleLovesAPI, '/api/loves')
     api.add_resource(CommentAPI, '/api/comments')
     api.add_resource(AccountKitAPI, '/api/accountkit')
+    api.add_resource(AssistantCore, '/api/assistant/')
 
     # @app.before_request
     # def csrf_protect():
