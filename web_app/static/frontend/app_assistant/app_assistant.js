@@ -12,7 +12,7 @@ var ContentAssistant = React.createClass({
     return (
       <div className="input-group">
         <input placeholder="URL" id="txt_url" className="form-control"
-        value={this.state.url} onChange={this.handleChange.bind(this)}/>
+        value={this.state.url} onChange={this.handleChange}/>
         <span className="input-group-btn">
           <button className="btn btn-default value-control" id="btn_fetch" onClick={this.onClick}>
           <span className="glyphicon glyphicon-download"></span>
