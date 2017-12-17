@@ -13,7 +13,7 @@ import importlib
 
 import humanize
 import flask_security
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, url_for
 from flask_admin import Admin
 from flask_security import SQLAlchemyUserDatastore, Security
 from flask_security.decorators import anonymous_user_required
@@ -161,5 +161,23 @@ def create_app():
     @app.template_filter('safe_email')
     def safe_email(s):
         return s[:s.index('@')]
+
+    @app.context_processor
+    def override_url_for():
+        """
+        Generate a new token on every request to prevent the browser from
+        caching static files.
+        """
+        return dict(url_for=dated_url_for)
+
+    def dated_url_for(endpoint, **values):
+        if endpoint == 'static':
+            filename = values.get('filename', None)
+            print('filename', filename)
+            if filename and 'app_assistant' in filename:
+                file_path = os.path.join(app.root_path,
+                                         endpoint, filename)
+                values['q'] = int(os.stat(file_path).st_mtime)
+        return url_for(endpoint, **values)
 
     return app
