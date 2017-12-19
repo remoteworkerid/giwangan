@@ -1,7 +1,35 @@
+class ContentAssistantResultView extends React.Component{
+    constructor(props){
+      super(props);
+      this.state = {
+        text: '',
+      };
+    };
+
+    handleChangeText(event){
+      this.setState({url: event.target.value})
+    };
+
+    render(){
+      return(
+        <div>
+          <p>{this.props.title}</p>
+          <div className="input-group">
+            <textarea id="txt_result" className="form-control" value={this.props.text} onChange={this.handleChangeText}></textarea>
+          </div>
+        </div>
+      );
+    }
+}
+
 var ContentAssistant = React.createClass({
 
   getInitialState: function() {
-    return { url: '' };
+    return {
+      url: 'http://www.detik.com',
+      title: 'Not yet scraped',
+      text: 'Not yet scraped',
+    };
   },
 
   handleChange(event){
@@ -18,8 +46,16 @@ var ContentAssistant = React.createClass({
           <span className="glyphicon glyphicon-download"></span>
           </button>
         </span>
+        <ContentAssistantResultView title={this.state.title} text={this.state.text}/>
       </div>
     );
+  },
+
+  handle_scraped_data: function (data, status, jqXHR) {
+    data = JSON.parse(data);
+    console.log(data);
+    this.setState({title: data.result.title});
+    this.setState({text: data.result.text});
   },
 
   onClick: function(){
@@ -29,20 +65,7 @@ var ContentAssistant = React.createClass({
       url: "/api/assistant",
       data: {'url': this.state.url},
       dataType: "json",
-      success: function (data, status, jqXHR) {
-        data = JSON.parse(data);
-        console.log(data);
-        // TODO create component for each title/text/images for this Assistant
-        // BUT Focus on M2 first in the morning yea
-        // $('#result').append(data.result.title);
-        // text = ' \
-        //         <div class="input-group"> \
-        //         <textarea id="txt_result" class="form-control">' + data.result.text + '</textarea> \
-        //     </div>';
-        // $('#result').append(text);
-
-      },
-
+      success: this.handle_scraped_data,
       error: function (jqXHR, status) {
         console.log(jqXHR);
 
@@ -56,25 +79,3 @@ ReactDOM.render(
   <ContentAssistant/>,
   document.getElementById('app_assistant_root')
 );
-
-/*
- var RandomMessage = React.createClass({
- getInitialState: function() {
- return { message: 'Hello, Universe' };
- },
- onClick: function() {
- var messages = ['Hello, World', 'Hello, Planet', 'Hello, Universe'];
- var randomMessage = messages[Math.floor((Math.random() * 3))];
-
- this.setState({ message: randomMessage });
- },
- render: function() {
- return (
- <div>
- <MessageView message={ this.state.message }/>
- <p><input type="button" onClick={ this.onClick } value="Change Message"/></p>
- </div>
- );
- }
- });
- */
