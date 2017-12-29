@@ -87,7 +87,8 @@ class PageModelView(AdminOnlyModelView):
     column_searchable_list = ['title', 'tag']
     column_default_sort = 'stamp'
 
-    form_columns = ['title', 'category', 'tag', 'excerpt', 'content','url', 'is_homepage', 'prev_page', 'next_page',
+    form_columns = ['title', 'category', 'tag', 'feature_image', 'feature_image_external_url',
+                    'feature_youtube_embed_code', 'excerpt', 'content','url', 'is_homepage', 'prev_page', 'next_page',
                     'subtype', 'pagestate', 'is_protected', 'password', 'stamp', ]
     create_template = 'admin/ckeditor.html'
     edit_template = 'admin/ckeditor.html'
