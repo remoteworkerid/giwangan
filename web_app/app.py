@@ -21,7 +21,7 @@ from flask_security.decorators import anonymous_user_required
 import global_vars as global_vars
 from models import db, Page, Menu, User, Role, SiteConfiguration, Image, AdsenseCode, AdsenseType, PageState
 from views import PageModelView, MenuModelView, UserModelView, RoleModelView, SecuredHomeView, \
-    SiteConfigurationView, ImageView
+    SiteConfigurationView, ImageView, ExtendedRegisterForm
 
 from utils.humanize import number
 from api.core import ToggleLovesAPI, CommentAPI, AccountKitAPI
@@ -46,7 +46,7 @@ def create_app():
     admin.add_view(ModelView(PageState, db.session))
 
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
-    security = Security(app, user_datastore)
+    security = Security(app, user_datastore, register_form=ExtendedRegisterForm)
     # csrf = CsrfProtect(app)
 
     api = Api(app)

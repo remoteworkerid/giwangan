@@ -2,10 +2,12 @@ from flask import url_for, request, session
 from flask_admin import BaseView, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 from flask_login import current_user
+from flask_security import RegisterForm
+from flask_security.forms import Required
 from markupsafe import Markup
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import redirect
-from wtforms import TextAreaField, PasswordField, TextField
+from wtforms import TextAreaField, PasswordField, TextField, StringField
 from wtforms.ext.csrf import SecureForm
 from wtforms.widgets import TextArea
 from flask_admin import form
@@ -125,6 +127,9 @@ class MenuModelView(AdminOnlyModelView):
 class UserModelView(AdminOnlyModelView):
     column_list = ('email', 'phone', 'active', 'roles')
     form_columns = ('email', 'phone', 'active', 'roles')
+
+class ExtendedRegisterForm(RegisterForm):
+    username = StringField('Username', [Required()])
 
 
 class RoleModelView(AdminOnlyModelView):
